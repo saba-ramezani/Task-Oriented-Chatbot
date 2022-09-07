@@ -466,16 +466,24 @@ def get_access_level_of_a_staff(staff_name, rank):
 # "سرهنگ # فعال است یا بلاک؟"
 def is_staff_active(staff_name, rank):
     cursor = conn.cursor()
-    cursor.execute("select active from staff \
-                 where name=? and rank=?", (staff_name, rank))
+    cursor.execute("select active, first_name, last_name from staff \
+                 where rank=?", (rank, ))
     rows = cursor.fetchall()
     if rows:
-        if rows[0][0] == 1:
-            print(rank + " " + staff_name + " is active!")
-        elif rows[0][0] == 0:
-            print(rank + " " + staff_name + " is blocked!")
-    else:
-        print(rank + " " + staff_name + " does not exist!")
+        for row in rows:
+            if row[2] == staff_name:
+                if row[0] == 1:
+                    print(rank + " " + staff_name + " is active!")
+                elif row[0] == 0:
+                    print(rank + " " + staff_name + " is blocked!")
+                return
+            elif str(row[1]) + " " + str(row[2]) == staff_name:
+                if row[0] == 1:
+                    print(rank + " " + staff_name + " is active!")
+                elif row[0] == 0:
+                    print(rank + " " + staff_name + " is blocked!")
+                return
+    print(rank + " " + staff_name + " does not exist!")
     cursor.close()
 
 
