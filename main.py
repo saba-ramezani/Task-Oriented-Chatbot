@@ -448,93 +448,18 @@ def get_barracks_name_of_a_staff(staff_name, rank):
 # "سطح دسترسی سرهنگ # چیست؟"
 def get_access_level_of_a_staff(staff_name, rank):
     cursor = conn.cursor()
-    name = str(staff_name).split()
-    if len(name) == 1:
-        # (رضایی)
-        cursor.execute("select access_level from staff \
-                         where last_name=? and rank=?", (staff_name, rank))
-        rows = cursor.fetchall()
-        if rows:
-            print(rows[0][0])
-        else:
-            print(rank + " " + staff_name + " does not exist!")
-    elif len(name) == 2:
-        # (محمد) (رضایی)
-        cursor.execute("select access_level from staff \
-                         where first_name=? and last_name=? and rank=?", (name[0], name[1], rank))
-        rows = cursor.fetchall()
-        if rows:
-            print(rows[0][0])
-        else:
-            # (محمد رضایی)
-            cursor.execute("select access_level from staff \
-                             where last_name=? and rank=?", (staff_name, rank))
-            rows = cursor.fetchall()
-            if rows:
-                print(rows[0][0])
-            else:
-                print(rank + " " + staff_name + " does not exist!")
-    elif len(name) == 3:
-        # (محمد حسین رضایی)
-        cursor.execute("select access_level from staff \
-                         where last_name=? and rank=?", (staff_name, rank))
-        rows = cursor.fetchall()
-        if rows:
-            print(rows[0][0])
-        else:
-            # (محمد) (حسین رضایی)
-            cursor.execute("select access_level from staff \
-                             where first_name=? and last_name=? and rank=?", (name[0], name[1] + " " + name[2], rank))
-            rows = cursor.fetchall()
-            if rows:
-                print(rows[0][0])
-            else:
-                # (محمد حسین) (رضایی)
-                cursor.execute("select access_level0 from staff \
-                                 where first_name=? and last_name=? and rank=?",
-                               (name[0] + " " + name[1], name[2], rank))
-                rows = cursor.fetchall()
-                if rows:
-                    print(rows[0][0])
-                else:
-                    print(rank + " " + staff_name + " does not exist!")
-    elif len(name) == 4:
-        # (محمد رضا حسین رضایی)
-        cursor.execute("select barracks_ID from staff \
-                         where last_name=? and rank=?", (staff_name, rank))
-        rows = cursor.fetchall()
-        if rows:
-            print(rows[0][0])
-        else:
-            # (محمد) (رضا حسین رضایی)
-            cursor.execute("select barracks_ID from staff \
-                             where first_name=? and last_name=? and rank=?",
-                           (name[0], name[1] + " " + name[2] + " " + name[3], rank))
-            rows = cursor.fetchall()
-            if rows:
-                print(rows[0][0])
-            else:
-                # (محمد رضا) (حسین رضایی)
-                cursor.execute("select barracks_ID from staff \
-                                 where first_name=? and last_name=? and rank=?",
-                               (name[0] + " " + name[1], name[2] + " " + name[3], rank))
-                rows = cursor.fetchall()
-                if rows:
-                    print(rows[0][0])
-                else:
-                    print(rank + " " + staff_name + " does not exist!")
-    cursor.close()
-
-
-    ###########
-    cursor = conn.cursor()
-    cursor.execute("select access_level from staff \
-                 where name=? and rank=?", (staff_name, rank))
+    cursor.execute("select access_level, first_name, last_name from staff \
+                 where rank=?", (rank, ))
     rows = cursor.fetchall()
     if rows:
-        print(rows[0][0])
-    else:
-        print(rank + " " + staff_name + " does not exist!")
+        for row in rows:
+            if row[2] == staff_name:
+                print(row[0])
+                return
+            elif str(row[1]) + " " + str(row[2]) == staff_name:
+                print(row[0])
+                return
+    print(rank + " " + staff_name + " does not exist!")
     cursor.close()
 
 
