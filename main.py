@@ -9,10 +9,13 @@ import numpy as np
 sensor_type = {"رادار": "radar",
                "جمر": "jammer",
                "آنتن": "antenna",
+               "انتن": "antenna",
                "سنسور": "sensor"}
 
 sensor_status = {"آفلاین": "0",
-                 "آنلاین": "1"}
+                 "آنلاین": "1",
+                 "انلاین": "1",
+                 "افلاین": "0"}
 
 rank = {"سرهنگ": "sarhang",
         "سروان": "sarvan",
@@ -36,7 +39,8 @@ two_part_area = {"شمال غربی": "north west",
 parameter = {
     "توان": "power",
     "فرکانس": "frequency",
-    "آزیموت": "azimuth"
+    "آزیموت": "azimuth",
+    "ازیموت": "azimuth"
 }
 
 temp_staff_first_names = ["علی", "رضا", "حسن", "حسین", "امیر", "هادی", "مهدی", "محسن", "فرشید", "مجید",
