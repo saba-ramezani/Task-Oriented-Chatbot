@@ -6151,6 +6151,20 @@ def get_status_of_two_barracks_link(barracks_id_1, barracks_id_2):
     cursor.close()
 
 
+# "ارتباط پادگان # با پادگان # روی چه کانالی میباشد؟"
+def get_channel_of_two_barracks_link(barracks_id_1, barracks_id_2):
+    cursor = conn.cursor()
+    cursor.execute("select channel from links \
+                 where (ID1=? and ID2=?) or (ID1=? and ID2=?)", (barracks_id_1, barracks_id_2, barracks_id_2, barracks_id_1))
+    rows = cursor.fetchall()
+    if rows:
+        print(rows[0][0])
+    else:
+        print("These two barracks are not connected")
+    cursor.close()
+
+
+
 def if_tow_circle_overlaps(longitude1, longitude2, latitude1, latitude2, radius1, radius2):
     '''
      1. Convert (lat, lon) to (x,y,z) geocentric coordinates.
