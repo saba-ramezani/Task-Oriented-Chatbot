@@ -6135,6 +6135,22 @@ def get_type_of_two_barracks_link(barracks_id_1, barracks_id_2):
     cursor.close()
 
 
+# "ارتباط پادگان # با پادگان # آنلاین است یا آفلاین؟"
+def get_status_of_two_barracks_link(barracks_id_1, barracks_id_2):
+    cursor = conn.cursor()
+    cursor.execute("select online from links \
+                 where (ID1=? and ID2=?) or (ID1=? and ID2=?)", (barracks_id_1, barracks_id_2, barracks_id_2, barracks_id_1))
+    rows = cursor.fetchall()
+    if rows:
+        if rows[0][0] == 1:
+            print("This link is online")
+        elif rows[0][0] == 0:
+            print("This link is offline")
+    else:
+        print("These two barracks are not connected")
+    cursor.close()
+
+
 def if_tow_circle_overlaps(longitude1, longitude2, latitude1, latitude2, radius1, radius2):
     '''
      1. Convert (lat, lon) to (x,y,z) geocentric coordinates.
