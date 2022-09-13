@@ -6164,6 +6164,19 @@ def get_channel_of_two_barracks_link(barracks_id_1, barracks_id_2):
     cursor.close()
 
 
+# "پادگان های زیر مجموعه پادگان # کدامند؟"
+def get_sub_barracks_of_barracks(barracks_id):
+    cursor = conn.cursor()
+    cursor.execute("select sub_ID from sub_barracks \
+                 where ID=?", (barracks_id,))
+    rows = cursor.fetchall()
+    if rows:
+        for row in rows:
+            print(row)
+    else:
+        print("This barracks has no subBarracks")
+    cursor.close()
+
 
 def if_tow_circle_overlaps(longitude1, longitude2, latitude1, latitude2, radius1, radius2):
     '''
