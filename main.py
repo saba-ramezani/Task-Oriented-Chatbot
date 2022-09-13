@@ -3715,7 +3715,7 @@ def merge_json_files_with_persion_nervals():
                         }
                     }
                     ner_dict[text] = ner
-    #for key in range(11, 21):
+    # for key in range(11, 21):
     #    for key2 in range(1, 21):
     #        for type1 in sensor_type:
     #            for type2 in sensor_type:
@@ -4462,8 +4462,6 @@ def merge_json_files_with_persion_nervals():
             }
         }
         ner_dict[text] = ner
-
-
 
     print("train_list size: " + str(len(train_list)))
     with open('./trainset_files/trainset_persion_nervals.json', 'w', encoding='utf8') as json_file:
@@ -5924,6 +5922,7 @@ def create_json_files_part_five_with_persion_nervals():
     with open('./ner_files/ner_part5_persion_nervals.json', 'w', encoding='utf8') as json_file:
         json.dump(ner_dict, json_file, indent=6, ensure_ascii=False)
 
+
 # "چند سنسور از نوع # مربوط به پادگان # وجود دارد؟"
 def get_sensor_count_based_on_sensor_type(sensor_type, barracks_ID):
     cursor = conn.cursor()
@@ -6206,7 +6205,7 @@ def get_parameter_of_sensor_based_on_parameter_type(sensor_id, parameter, sensor
 # "حوزه استحفاظی سنسور # با حوزه استحفاظی سنسور # تداخل دارد؟"
 def check_if_two_sensors_interfere(sensor_id_1, sensor_id_2, sensor_type_1, sensor_type_2):
     cursor = conn.cursor()
-    if sensor_type_1 == "sensor" and sensor_type_2 == "sensor":
+    if sensor_type_1 == "sensor":
         cursor.execute("select longitude, latitude, radius from sensors \
                              where ID=?", (sensor_id_1,))
         rows = cursor.fetchall()
@@ -6219,6 +6218,61 @@ def check_if_two_sensors_interfere(sensor_id_1, sensor_id_2, sensor_type_1, sens
         else:
             print("This sensor doesnt exist!")
             return
+    else:
+        cursor.execute("select longitude, latitude, radius from sensors \
+                             where ID=? and type=?", (sensor_id_1, sensor_type_1))
+        rows = cursor.fetchall()
+        if rows:
+            dict1 = {
+                "longitude": rows[0][0],
+                "latitude": rows[0][1],
+                "radius": rows[0][2]
+            }
+        else:
+            print("This sensor doesnt exist!")
+            return
+
+        if sensor_type_1 == "sensor":
+            cursor.execute("select longitude, latitude, radius from sensors \
+                                 where ID=?", (sensor_id_1,))
+            rows = cursor.fetchall()
+            if rows:
+                dict1 = {
+                    "longitude": rows[0][0],
+                    "latitude": rows[0][1],
+                    "radius": rows[0][2]
+                }
+            else:
+                print("This sensor doesnt exist!")
+                return
+        else:
+            cursor.execute("select longitude, latitude, radius from sensors \
+                                 where ID=? and type=?", (sensor_id_1, sensor_type_1))
+            rows = cursor.fetchall()
+            if rows:
+                dict1 = {
+                    "longitude": rows[0][0],
+                    "latitude": rows[0][1],
+                    "radius": rows[0][2]
+                }
+            else:
+                print("This sensor doesnt exist!")
+                return
+        if sensor_type_2 == "sensor":
+
+            cursor.execute("select longitude, latitude, radius from sensors \
+                                 where ID=?", (sensor_id_2,))
+            rows = cursor.fetchall()
+            if rows:
+                dict2 = {
+                    "longitude": rows[0][0],
+                    "latitude": rows[0][1],
+                    "radius": rows[0][2]
+                }
+            else:
+                print("This sensor doesnt exist!")
+                return
+    if sensor_type_2 == "sensor":
         cursor.execute("select longitude, latitude, radius from sensors \
                              where ID=?", (sensor_id_2,))
         rows = cursor.fetchall()
@@ -6233,19 +6287,7 @@ def check_if_two_sensors_interfere(sensor_id_1, sensor_id_2, sensor_type_1, sens
             return
     else:
         cursor.execute("select longitude, latitude, radius from sensors \
-                     where ID=? and type=?", (sensor_id_1, sensor_type_1))
-        rows = cursor.fetchall()
-        if rows:
-            dict1 = {
-                "longitude": rows[0][0],
-                "latitude": rows[0][1],
-                "radius": rows[0][2]
-            }
-        else:
-            print("This sensor doesnt exist!")
-            return
-        cursor.execute("select longitude, latitude, radius from sensors \
-                     where ID=? and type=?", (sensor_id_2, sensor_type_2))
+                             where ID=? and type=?", (sensor_id_2, sensor_type_2))
         rows = cursor.fetchall()
         if rows:
             dict2 = {
@@ -6365,7 +6407,8 @@ def is_staff_active(staff_name, rank):
 def get_type_of_two_barracks_link(barracks_id_1, barracks_id_2):
     cursor = conn.cursor()
     cursor.execute("select type from links \
-                 where (ID1=? and ID2=?) or (ID1=? and ID2=?)", (barracks_id_1, barracks_id_2, barracks_id_2, barracks_id_1))
+                 where (ID1=? and ID2=?) or (ID1=? and ID2=?)",
+                   (barracks_id_1, barracks_id_2, barracks_id_2, barracks_id_1))
     rows = cursor.fetchall()
     if rows:
         print(rows[0][0])
@@ -6378,7 +6421,8 @@ def get_type_of_two_barracks_link(barracks_id_1, barracks_id_2):
 def get_status_of_two_barracks_link(barracks_id_1, barracks_id_2):
     cursor = conn.cursor()
     cursor.execute("select online from links \
-                 where (ID1=? and ID2=?) or (ID1=? and ID2=?)", (barracks_id_1, barracks_id_2, barracks_id_2, barracks_id_1))
+                 where (ID1=? and ID2=?) or (ID1=? and ID2=?)",
+                   (barracks_id_1, barracks_id_2, barracks_id_2, barracks_id_1))
     rows = cursor.fetchall()
     if rows:
         if rows[0][0] == 1:
@@ -6394,7 +6438,8 @@ def get_status_of_two_barracks_link(barracks_id_1, barracks_id_2):
 def get_channel_of_two_barracks_link(barracks_id_1, barracks_id_2):
     cursor = conn.cursor()
     cursor.execute("select channel from links \
-                 where (ID1=? and ID2=?) or (ID1=? and ID2=?)", (barracks_id_1, barracks_id_2, barracks_id_2, barracks_id_1))
+                 where (ID1=? and ID2=?) or (ID1=? and ID2=?)",
+                   (barracks_id_1, barracks_id_2, barracks_id_2, barracks_id_1))
     rows = cursor.fetchall()
     if rows:
         print(rows[0][0])
@@ -6503,7 +6548,6 @@ def if_tow_circle_overlaps(longitude1, longitude2, latitude1, latitude2, radius1
     else:
         return "The centers of the circles can be neither the same point nor antipodal points."
 
-
 # sql = "INSERT INTO staff(first_name, last_name, rank, barracks_ID, access_level, active) \
 #             VALUES ('هاشمی','علی', 'sarhang', 1, '1', True)"
 ##conn.execute(sql)
@@ -6524,8 +6568,8 @@ def if_tow_circle_overlaps(longitude1, longitude2, latitude1, latitude2, radius1
 # for row in rows:
 # print(row)
 # cursor.close()
-#merge_json_files_with_persion_nervals()
-#create_all_json_files_with_persion_nervals()
+# merge_json_files_with_persion_nervals()
+# create_all_json_files_with_persion_nervals()
 # with open("./ner_intent_files/")
 
 
@@ -6534,7 +6578,7 @@ def if_tow_circle_overlaps(longitude1, longitude2, latitude1, latitude2, radius1
 # create_all_json_files()
 
 # merge_json_files()
-#cursor = conn.execute('select * from sub_barracks')
-#names = list(map(lambda x: x[0], cursor.description))
-#conn.close()
-#print(names)
+# cursor = conn.execute('select * from sub_barracks')
+# names = list(map(lambda x: x[0], cursor.description))
+# conn.close()
+# print(names)
