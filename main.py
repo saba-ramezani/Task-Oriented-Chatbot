@@ -6231,47 +6231,6 @@ def check_if_two_sensors_interfere(sensor_id_1, sensor_id_2, sensor_type_1, sens
         else:
             print("This sensor doesnt exist!")
             return
-
-        if sensor_type_1 == "sensor":
-            cursor.execute("select longitude, latitude, radius from sensors \
-                                 where ID=?", (sensor_id_1,))
-            rows = cursor.fetchall()
-            if rows:
-                dict1 = {
-                    "longitude": rows[0][0],
-                    "latitude": rows[0][1],
-                    "radius": rows[0][2]
-                }
-            else:
-                print("This sensor doesnt exist!")
-                return
-        else:
-            cursor.execute("select longitude, latitude, radius from sensors \
-                                 where ID=? and type=?", (sensor_id_1, sensor_type_1))
-            rows = cursor.fetchall()
-            if rows:
-                dict1 = {
-                    "longitude": rows[0][0],
-                    "latitude": rows[0][1],
-                    "radius": rows[0][2]
-                }
-            else:
-                print("This sensor doesnt exist!")
-                return
-        if sensor_type_2 == "sensor":
-
-            cursor.execute("select longitude, latitude, radius from sensors \
-                                 where ID=?", (sensor_id_2,))
-            rows = cursor.fetchall()
-            if rows:
-                dict2 = {
-                    "longitude": rows[0][0],
-                    "latitude": rows[0][1],
-                    "radius": rows[0][2]
-                }
-            else:
-                print("This sensor doesnt exist!")
-                return
     if sensor_type_2 == "sensor":
         cursor.execute("select longitude, latitude, radius from sensors \
                              where ID=?", (sensor_id_2,))
