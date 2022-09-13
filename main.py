@@ -3848,7 +3848,7 @@ def merge_json_files_with_persion_nervals():
     for key in rank:
         for i in range(1, 51):
             # "تعداد سرهنگ های پادگان 1 چند تاست؟"
-            text = "تعداد " + str(key) + " های پادگان " + str(i) + "چندتاست؟"
+            text = "تعداد " + str(key) + " های پادگان " + str(i) + " چندتاست؟"
             # train
             train_dict = {
                 "text": text,
