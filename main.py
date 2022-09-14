@@ -3000,6 +3000,55 @@ def merge_json_files_with_persion_nervals():
             }
             ner_dict[text] = ner
 
+            # "ایپی سنسور 1 چیست؟"
+            text = "ایپی " + str(key) + " " + str(i) + " چیست؟"
+            # train
+            train_dict = {
+                "text": text,
+                "slots": {"sensor_name_1": str(i),
+                          "sensor_type_1": str(key)},
+                "query": {"intent": "get_sensor_IP",
+                          "sensor_name_1": str(i),
+                          "sensor_type_1": str(sensor_type[key])}
+            }
+            train_list.append(train_dict)
+            # ner_intent
+            ner_intent = {
+                "TEXT": text.split(),
+                "NERTAGS": [
+                    "O",
+                    "B-sensor_type_1",
+                    "B-sensor_name_1",
+                    "O"
+                ],
+                "NERVALS": {
+                    "sensor_name_1": str(i),
+                    "sensor_type_1": str(key)
+                },
+                "INTENTS": [
+                    "get_sensor_IP"
+                ]
+            }
+            ner_intent_dict[text] = ner_intent
+            # intent
+            intent = {"INTENTS": ["get_sensor_IP"]}
+            intent_dict[text] = intent
+            # ner
+            ner = {
+                "TEXT": text.split(),
+                "NERTAGS": [
+                    "O",
+                    "B-sensor_type_1",
+                    "B-sensor_name_1",
+                    "O"
+                ],
+                "NERVALS": {
+                    "sensor_name_1": str(i),
+                    "sensor_type_1": str(key)
+                }
+            }
+            ner_dict[text] = ner
+
             # "مختصات جغرافیایی سنسور 1 چیست؟"
             text = "مختصات جغرافیایی " + str(key) + " " + str(i) + " چیست؟"
             # train
@@ -3051,8 +3100,118 @@ def merge_json_files_with_persion_nervals():
             }
             ner_dict[text] = ner
 
+            # "مختصات سنسور 1 چیست؟"
+            text = "مختصات " + str(key) + " " + str(i) + " چیست؟"
+            # train
+            train_dict = {
+                "text": text,
+                "slots": {"sensor_name_1": str(i),
+                          "sensor_type_1": str(key)},
+                "query": {"intent": "get_coordinates_of_sensor",
+                          "sensor_name_1": str(i),
+                          "sensor_type_1": str(sensor_type[key])}
+            }
+            train_list.append(train_dict)
+            # ner_intent
+            ner_intent = {
+                "TEXT": text.split(),
+                "NERTAGS": [
+                    "O",
+                    "O",
+                    "B-sensor_type_1",
+                    "B-sensor_name_1",
+                    "O"
+                ],
+                "NERVALS": {
+                    "sensor_name_1": str(i),
+                    "sensor_type_1": str(key)
+                },
+                "INTENTS": [
+                    "get_coordinates_of_sensor"
+                ]
+            }
+            ner_intent_dict[text] = ner_intent
+            # intent
+            intent = {"INTENTS": ["get_coordinates_of_sensor"]}
+            intent_dict[text] = intent
+            # ner
+            ner = {
+                "TEXT": text.split(),
+                "NERTAGS": [
+                    "O",
+                    "O",
+                    "B-sensor_type_1",
+                    "B-sensor_name_1",
+                    "O"
+                ],
+                "NERVALS": {
+                    "sensor_name_1": str(i),
+                    "sensor_type_1": str(key)
+                }
+            }
+            ner_dict[text] = ner
+
             # "پارامترهای مربوط به سنسور 1 دارای چه مقادیری هستند؟"
             text = "پارامترهای مربوط به " + str(key) + " " + str(i) + " دارای چه مقادیری هستند؟"
+            # train
+            train_dict = {
+                "text": text,
+                "slots": {"sensor_name_1": str(i),
+                          "sensor_type_1": str(key)},
+                "query": {"intent": "get_all_parameters_of_sensor",
+                          "sensor_name_1": str(i),
+                          "sensor_type_1": str(sensor_type[key])}
+            }
+            train_list.append(train_dict)
+            # ner_intent
+            ner_intent = {
+                "TEXT": text.split(),
+                "NERTAGS": [
+                    "O",
+                    "O",
+                    "O",
+                    "B-sensor_type_1",
+                    "B-sensor_name_1",
+                    "O",
+                    "O",
+                    "O",
+                    "O"
+                ],
+                "NERVALS": {
+                    "sensor_name_1": str(i),
+                    "sensor_type_1": str(key)
+                },
+                "INTENTS": [
+                    "get_all_parameters_of_sensor"
+                ]
+            }
+            ner_intent_dict[text] = ner_intent
+            # intent
+            intent = {"INTENTS": ["get_all_parameters_of_sensor"]}
+            intent_dict[text] = intent
+            # ner
+            ner = {
+                "TEXT": text.split(),
+                "NERTAGS": [
+                    "O",
+                    "O",
+                    "O",
+                    "B-sensor_type_1",
+                    "B-sensor_name_1",
+                    "O",
+                    "O",
+                    "O",
+                    "O"
+                ],
+                "NERVALS": {
+                    "sensor_name_1": str(i),
+                    "sensor_type_1": str(key)
+                }
+            }
+            ner_dict[text] = ner
+
+            # "پارامتر های مربوط به سنسور 1 دارای چه مقادیری هستند؟"
+            text = "پارامتر های مربوط به " + str(key) + " " + str(i) + " دارای چه مقادیری هستند؟"
             # train
             train_dict = {
                 "text": text,
@@ -3165,9 +3324,125 @@ def merge_json_files_with_persion_nervals():
             }
             ner_dict[text] = ner
 
+            # "سنسور های دشمن در پادگان 1 کدامند؟"
+            text = str(key) + "های دشمن در پادگان " + str(i) + " کدامند؟"
+            # train
+            train_dict = {
+                "text": text,
+                "slots": {"barracks_name_1": str(i),
+                          "sensor_type_1": str(key)},
+                "query": {"intent": "get_enemy_sensors_based_on_barracks_id",
+                          "barracks_name_1": str(i),
+                          "sensor_type_1": str(sensor_type[key])}
+            }
+            train_list.append(train_dict)
+            # ner_intent
+            ner_intent = {
+                "TEXT": text.split(),
+                "NERTAGS": [
+                    "B-sensor_type_1",
+                    "O",
+                    "O",
+                    "O",
+                    "O",
+                    "B-barracks_name_1",
+                    "O"
+                ],
+                "NERVALS": {
+                    "barracks_name_1": str(i),
+                    "sensor_type_1": str(key)
+                },
+                "INTENTS": [
+                    "get_enemy_sensors_based_on_barracks_id"
+                ]
+            }
+            ner_intent_dict[text] = ner_intent
+            # intent
+            intent = {"INTENTS": ["get_enemy_sensors_based_on_barracks_id"]}
+            intent_dict[text] = intent
+            # ner
+            ner = {
+                "TEXT": text.split(),
+                "NERTAGS": [
+                    "B-sensor_type_1",
+                    "O",
+                    "O",
+                    "O",
+                    "O",
+                    "B-barracks_name_1",
+                    "O"
+                ],
+                "NERVALS": {
+                    "barracks_name_1": str(i),
+                    "sensor_type_1": str(key)
+                }
+            }
+            ner_dict[text] = ner
+
             for key2 in parameter:
                 # "رادار 1 با چه فرکانسی کار می کند؟"
                 text = str(key) + " " + str(i) + " با چه " + str(key2) + " ای کار می کند؟"
+                # train
+                train_dict = {
+                    "text": text,
+                    "slots": {"sensor_name_1": str(i),
+                              "parameter": str(key2),
+                              "sensor_type_1": str(key)},
+                    "query": {"intent": "get_parameter_of_sensor_based_on_parameter_type",
+                              "sensor_name_1": str(i),
+                              "parameter": str(parameter[key2]),
+                              "sensor_type_1": str(sensor_type[key])}
+                }
+                train_list.append(train_dict)
+                # ner_intent
+                ner_intent = {
+                    "TEXT": text.split(),
+                    "NERTAGS": [
+                        "B-sensor_type_1",
+                        "B-sensor_name_1",
+                        "O",
+                        "O",
+                        "B-parameter",
+                        "O",
+                        "O",
+                        "O"
+                    ],
+                    "NERVALS": {
+                        "sensor_type": str(key),
+                        "sensor_name": str(i),
+                        "parameter": str(key2)
+                    },
+                    "INTENTS": [
+                        "get_parameter_of_sensor_based_on_parameter_type"
+                    ]
+                }
+                ner_intent_dict[text] = ner_intent
+                # intent
+                intent = {"INTENTS": ["get_parameter_of_sensor_based_on_parameter_type"]}
+                intent_dict[text] = intent
+                # ner
+                ner = {
+                    "TEXT": text.split(),
+                    "NERTAGS": [
+                        "B-sensor_type_1",
+                        "B-sensor_name_1",
+                        "O",
+                        "O",
+                        "B-parameter",
+                        "O",
+                        "O",
+                        "O"
+                    ],
+                    "NERVALS": {
+                        "sensor_type": str(key),
+                        "sensor_name": str(i),
+                        "parameter": str(key2)
+                    }
+                }
+                ner_dict[text] = ner
+
+                # "رادار 1 با چه فرکانسی کار می کند؟"
+                text = str(key) + " " + str(i) + " با چه " + str(key2) + "ی کار می کند؟"
                 # train
                 train_dict = {
                     "text": text,
@@ -3440,6 +3715,53 @@ def merge_json_files_with_persion_nervals():
         }
         ner_dict[text] = ner
 
+        # "مختصات پادگان 1 چیست؟"
+        text = "مختصات پادگان " + str(i) + " چیست؟ "
+        # train
+        train_dict = {
+            "text": text,
+            "slots": {"barracks_name_1": str(i)},
+            "query": {"intent": "get_coordinates_of_barracks",
+                      "barracks_name_1": str(i)}
+        }
+        train_list.append(train_dict)
+        # ner_intent
+        ner_intent = {
+            "TEXT": text.split(),
+            "NERTAGS": [
+                "O",
+                "O",
+                "O",
+                "B-barracks_name_1",
+                "O"
+            ],
+            "NERVALS": {
+                "barracks_name_1": str(i)
+            },
+            "INTENTS": [
+                "get_coordinates_of_barracks"
+            ]
+        }
+        ner_intent_dict[text] = ner_intent
+        # intent
+        intent = {"INTENTS": ["get_coordinates_of_barracks"]}
+        intent_dict[text] = intent
+        # ner
+        ner = {
+            "TEXT": text.split(),
+            "NERTAGS": [
+                "O",
+                "O",
+                "O",
+                "B-barracks_name_1",
+                "O"
+            ],
+            "NERVALS": {
+                "barracks_name_1": str(i)
+            }
+        }
+        ner_dict[text] = ner
+
         # "سنسور 1 از چه نوع است؟"
         text = "سنسور " + str(i) + " از چه نوع است؟ "
         # train
@@ -3530,6 +3852,49 @@ def merge_json_files_with_persion_nervals():
             }
         }
         ner_dict[text] = ner
+
+        # "پادگانهای دشمن کدامند؟"
+        text = "پادگانهای دشمن کدامند؟ "
+        # train
+        train_dict = {
+            "text": text,
+            "slots": {},
+            "query": {"intent": "get_enemy_barracks"}
+        }
+        train_list.append(train_dict)
+        # ner_intent
+        ner_intent = {
+            "TEXT": text.split(),
+            "NERTAGS": [
+                "O",
+                "O",
+                "O",
+                "O"
+            ],
+            "NERVALS": {
+            },
+            "INTENTS": [
+                "get_enemy_barracks"
+            ]
+        }
+        ner_intent_dict[text] = ner_intent
+        # intent
+        intent = {"INTENTS": ["get_enemy_barracks"]}
+        intent_dict[text] = intent
+        # ner
+        ner = {
+            "TEXT": text.split(),
+            "NERTAGS": [
+                "O",
+                "O",
+                "O",
+                "O"
+            ],
+            "NERVALS": {
+            }
+        }
+        ner_dict[text] = ner
+
     for key2 in one_part_area:
         for key in sensor_type:
             # "رادارهای جنوب کشور چه وضعیتی دارند؟"
@@ -3586,9 +3951,10 @@ def merge_json_files_with_persion_nervals():
                 }
             }
             ner_dict[text] = ner
+
     for key2 in two_part_area:
         for key in sensor_type:
-            # "رادارهای جنوب شرقی کشور چه وضعیتی دارند؟"
+            # "رادار های جنوب شرقی کشور چه وضعیتی دارند؟"
             text = str(key) + " های " + str(key2) + " کشور چه وضعیتی دارند؟"
             # train
             train_dict = {
@@ -3644,6 +4010,64 @@ def merge_json_files_with_persion_nervals():
                 }
             }
             ner_dict[text] = ner
+
+            # "رادارهای جنوب شرقی کشور چه وضعیتی دارند؟"
+            text = str(key) + "های " + str(key2) + " کشور چه وضعیتی دارند؟"
+            # train
+            train_dict = {
+                "text": text,
+                "slots": {"sensor_type_1": str(key),
+                          "area": str(key2)},
+                "query": {"intent": "get_sensors_status_based_on_location_and_sensor_type",
+                          "sensor_type_1": str(sensor_type[key]),
+                          "area": str(two_part_area[key2])}
+            }
+            train_list.append(train_dict)
+            # ner_intent
+            ner_intent = {
+                "TEXT": text.split(),
+                "NERTAGS": [
+                    "B-sensor_type_1",
+                    "O",
+                    "B-area",
+                    "I-area",
+                    "O",
+                    "O",
+                    "O",
+                    "O"
+                ],
+                "NERVALS": {
+                    "sensor_type_1": str(key),
+                    "area": str(key2)
+                },
+                "INTENTS": [
+                    "get_sensors_status_based_on_location_and_sensor_type"
+                ]
+            }
+            ner_intent_dict[text] = ner_intent
+            # intent
+            intent = {"INTENTS": ["get_sensors_status_based_on_location_and_sensor_type"]}
+            intent_dict[text] = intent
+            # ner
+            ner = {
+                "TEXT": text.split(),
+                "NERTAGS": [
+                    "B-sensor_type_1",
+                    "O",
+                    "B-area",
+                    "I-area",
+                    "O",
+                    "O",
+                    "O",
+                    "O"
+                ],
+                "NERVALS": {
+                    "sensor_type_1": str(key),
+                    "area": str(key2)
+                }
+            }
+            ner_dict[text] = ner
+
     for key in range(1, 11):
         for key2 in range(1, 21):
             for type1 in sensor_type:
@@ -3719,83 +4143,9 @@ def merge_json_files_with_persion_nervals():
                         }
                     }
                     ner_dict[text] = ner
-    # for key in range(11, 21):
-    #    for key2 in range(1, 21):
-    #        for type1 in sensor_type:
-    #            for type2 in sensor_type:
-    #                # "حوزه استحفاظی رادار 1 با حوزه استحفاظی آنتن 2 تداخل دارد؟"
-    #                text = "حوزه استحفاظی " + str(type1) + " " + str(key) + " با حوزه استحفاظی " + str(
-    #                    type2) + " " + str(key2) + " تداخل دارد؟"
-    #                # train
-    #                train_dict = {
-    #                    "text": text,
-    #                    "slots": {"sensor_name_1": str(key),
-    #                              "sensor_name_2": str(key2),
-    #                              "sensor_type_1": str(type1),
-    #                              "sensor_type_2": str(type2)},
-    #                    "query": {"intent": "check_if_two_sensors_interfere",
-    #                              "sensor_type_1": str(sensor_type[type1]),
-    #                              "sensor_type_2": str(sensor_type[type2]),
-    #                              "sensor_name_1": str(key),
-    #                              "sensor_name_2": str(key2)}
-    #                }
-    #                train_list.append(train_dict)
-    #                # ner_intent
-    #                ner_intent = {
-    #                    "TEXT": text.split(),
-    #                    "NERTAGS": [
-    #                        "O",
-    #                        "O",
-    #                        "B-sensor_type_1",
-    #                        "B-sensor_name_1",
-    #                        "O",
-    #                        "O",
-    #                        "O",
-    #                        "B-sensor_type_2",
-    #                        "B-sensor_name_2",
-    #                        "O",
-    #                        "O"
-    #                    ],
-    #                    "NERVALS": {
-    #                        "sensor_name_1": str(key),
-    #                        "sensor_name_2": str(key2),
-    #                        "sensor_type_1": str(type1),
-    #                        "sensor_type_2": str(type2)
-    #                    },
-    #                    "INTENTS": [
-    #                        "check_if_two_sensors_interfere"
-    #                    ]
-    #                }
-    #                ner_intent_dict[text] = ner_intent
-    #                # intent
-    #                intent = {"INTENTS": ["check_if_two_sensors_interfere"]}
-    #                intent_dict[text] = intent
-    #                # ner
-    #                ner = {
-    #                    "TEXT": text.split(),
-    #                    "NERTAGS": [
-    #                        "O",
-    #                        "O",
-    #                        "B-sensor_type_1",
-    #                        "B-sensor_name_1",
-    #                        "O",
-    #                        "O",
-    #                        "O",
-    #                        "B-sensor_type_2",
-    #                        "B-sensor_name_2",
-    #                        "O",
-    #                        "O"
-    #                    ],
-    #                    "NERVALS": {
-    #                        "sensor_name_1": str(key),
-    #                        "sensor_name_2": str(key2),
-    #                        "sensor_type_1": str(type1),
-    #                        "sensor_type_2": str(type2)
-    #                    }
-    #                }
-    #                ner_dict[text] = ner
+
     for key in sensor_type:
-        # "حوزه استحفاظی چه رادارهایی با هم تداخل ندارند؟"
+        # "حوزه استحفاظی چه رادار هایی با هم تداخل ندارند؟"
         text = "حوزه استحفاظی چه " + str(key) + " هایی با هم نداخل ندارند؟"
         # train
         train_dict = {
@@ -3849,10 +4199,121 @@ def merge_json_files_with_persion_nervals():
             }
         }
         ner_dict[text] = ner
+
+        # "حوزه استحفاظی چه رادارهایی با هم تداخل ندارند؟"
+        text = "حوزه استحفاظی چه " + str(key) + "هایی با هم نداخل ندارند؟"
+        # train
+        train_dict = {
+            "text": text,
+            "slots": {"sensor_type_1": str(key)},
+            "query": {"intent": "get_all_sensors_that_do_not_interfere_based_on_sensor_type",
+                      "sensor_type_1": str(sensor_type[key])}
+        }
+        train_list.append(train_dict)
+        # ner_intent
+        ner_intent = {
+            "TEXT": text.split(),
+            "NERTAGS": [
+                "O",
+                "O",
+                "O",
+                "B-sensor_type_1",
+                "O",
+                "O",
+                "O",
+                "O",
+                "O"
+            ],
+            "NERVALS": {
+                "sensor_type_1": str(key)
+            },
+            "INTENTS": [
+                "get_all_sensors_that_do_not_interfere_based_on_sensor_type"
+            ]
+        }
+        ner_intent_dict[text] = ner_intent
+        # intent
+        intent = {"INTENTS": ["get_all_sensors_that_do_not_interfere_based_on_sensor_type"]}
+        intent_dict[text] = intent
+        # ner
+        ner = {
+            "TEXT": text.split(),
+            "NERTAGS": [
+                "O",
+                "O",
+                "O",
+                "B-sensor_type_1",
+                "O",
+                "O",
+                "O",
+                "O",
+                "O"
+            ],
+            "NERVALS": {
+                "sensor_type_1": str(key)
+            }
+        }
+        ner_dict[text] = ner
+
     for key in rank:
         for i in range(1, 51):
             # "تعداد سرهنگ های پادگان 1 چند تاست؟"
             text = "تعداد " + str(key) + " های پادگان " + str(i) + " چندتاست؟"
+            # train
+            train_dict = {
+                "text": text,
+                "slots": {"barracks_name_1": str(i),
+                          "rank": str(key)},
+                "query": {"intent": "get_count_of_barracks_staff_based_on_rank",
+                          "barracks_name_1": str(i),
+                          "rank": str(rank[key])}
+            }
+            train_list.append(train_dict)
+            # ner_intent
+            ner_intent = {
+                "TEXT": text.split(),
+                "NERTAGS": [
+                    "O",
+                    "B-rank",
+                    "O",
+                    "O",
+                    "B-barracks_name_1",
+                    "O",
+                    "O"
+                ],
+                "NERVALS": {
+                    "barracks_name_1": str(i),
+                    "rank": str(key)
+                },
+                "INTENTS": [
+                    "get_count_of_barracks_staff_based_on_rank"
+                ]
+            }
+            ner_intent_dict[text] = ner_intent
+            # intent
+            intent = {"INTENTS": ["get_count_of_barracks_staff_based_on_rank"]}
+            intent_dict[text] = intent
+            # ner
+            ner = {
+                "TEXT": text.split(),
+                "NERTAGS": [
+                    "O",
+                    "B-rank",
+                    "O",
+                    "O",
+                    "B-barracks_name_1",
+                    "O",
+                    "O"
+                ],
+                "NERVALS": {
+                    "barracks_name_1": str(i),
+                    "rank": str(key)
+                }
+            }
+            ner_dict[text] = ner
+
+            # "تعداد سرهنگهای پادگان 1 چند تاست؟"
+            text = "تعداد " + str(key) + "های پادگان " + str(i) + " چندتاست؟"
             # train
             train_dict = {
                 "text": text,
@@ -4353,6 +4814,67 @@ def merge_json_files_with_persion_nervals():
             }
             ner_dict[text] = ner
 
+            # "ارتباط پادگان 1 با پادگان 2 آنلاین است یا آفلاین؟"
+            text = "ارتباط پادگان " + str(key) + " با پادگان " + str(key2) + " انلاین است یا افلاین؟"
+            # train
+            train_dict = {
+                "text": text,
+                "slots": {"barracks_name_1": str(key),
+                          "barracks_name_2": str(key2)},
+                "query": {"intent": "get_status_of_two_barracks_link",
+                          "barracks_name_1": str(key),
+                          "barracks_name_2": str(key2)}
+            }
+            train_list.append(train_dict)
+            # ner_intent
+            ner_intent = {
+                "TEXT": text.split(),
+                "NERTAGS": [
+                    "O",
+                    "O",
+                    "B-barracks_name_1",
+                    "O",
+                    "O",
+                    "B-barracks_name_2",
+                    "O",
+                    "O",
+                    "O",
+                    "O"
+                ],
+                "NERVALS": {
+                    "barracks_name_1": str(key),
+                    "barracks_name_2": str(key2)
+                },
+                "INTENTS": [
+                    "get_status_of_two_barracks_link"
+                ]
+            }
+            ner_intent_dict[text] = ner_intent
+            # intent
+            intent = {"INTENTS": ["get_status_of_two_barracks_link"]}
+            intent_dict[text] = intent
+            # ner
+            ner = {
+                "TEXT": text.split(),
+                "NERTAGS": [
+                    "O",
+                    "O",
+                    "B-barracks_name_1",
+                    "O",
+                    "O",
+                    "B-barracks_name_2",
+                    "O",
+                    "O",
+                    "O",
+                    "O"
+                ],
+                "NERVALS": {
+                    "barracks_name_1": str(key),
+                    "barracks_name_2": str(key2)
+                }
+            }
+            ner_dict[text] = ner
+
             # "ارتباط پادگان 1 با پادگان 2 روی چه کانالی میباشد؟"
             text = "ارتباط پادگان " + str(key) + " با پادگان " + str(key2) + " روی چه کانالی می باشد؟"
             # train
@@ -4417,6 +4939,57 @@ def merge_json_files_with_persion_nervals():
             ner_dict[text] = ner
     for key in range(1, 51):
         # "پادگان های زیر مجموعه پادگان 1 کدامند؟"
+        text = "پادگان های زیرمجموعه پادگان " + str(key) + " کدامند؟"
+        # train
+        train_dict = {
+            "text": text,
+            "slots": {"barracks_name_1": str(key)},
+            "query": {"intent": "get_sub_barracks_of_barracks",
+                      "barracks_name_1": str(key)}
+        }
+        train_list.append(train_dict)
+        # ner_intent
+        ner_intent = {
+            "TEXT": text.split(),
+            "NERTAGS": [
+                "O",
+                "O",
+                "O",
+                "O",
+                "O",
+                "B-barracks_name_1",
+                "O"
+            ],
+            "NERVALS": {
+                "barracks_name_1": str(key)
+            },
+            "INTENTS": [
+                "get_sub_barracks_of_barracks"
+            ]
+        }
+        ner_intent_dict[text] = ner_intent
+        # intent
+        intent = {"INTENTS": ["get_sub_barracks_of_barracks"]}
+        intent_dict[text] = intent
+        # ner
+        ner = {
+            "TEXT": text.split(),
+            "NERTAGS": [
+                "O",
+                "O",
+                "O",
+                "O",
+                "O",
+                "B-barracks_name_1",
+                "O"
+            ],
+            "NERVALS": {
+                "barracks_name_1": str(key)
+            }
+        }
+        ner_dict[text] = ner
+
+        # "پادگان های زیر مجموعه پادگان 1 کدامند؟"
         text = "پادگان های زیر مجموعه پادگان " + str(key) + " کدامند؟"
         # train
         train_dict = {
@@ -4467,18 +5040,18 @@ def merge_json_files_with_persion_nervals():
         }
         ner_dict[text] = ner
 
-    print("train_list size: " + str(len(train_list)))
-    with open('./trainset_files/trainset_persion_nervals.json', 'w', encoding='utf8') as json_file:
-        json.dump(train_list, json_file, indent=6, ensure_ascii=False)
+    #print("train_list size: " + str(len(train_list)))
+    #with open('./trainset_files/trainset_persion_nervals.json', 'w', encoding='utf8') as json_file:
+    #    json.dump(train_list, json_file, indent=6, ensure_ascii=False)
     print("ner_intent_dict size: " + str(len(train_list)))
     with open('./ner_intent_files/ner_intent_persion_nervals.json', 'w', encoding='utf8') as json_file:
         json.dump(ner_intent_dict, json_file, indent=6, ensure_ascii=False)
-    print("intent_dict size: " + str(len(train_list)))
-    with open('./intent_files/intent_persion_nervals.json', 'w', encoding='utf8') as json_file:
-        json.dump(intent_dict, json_file, indent=6, ensure_ascii=False)
-    print("ner_dict size: " + str(len(train_list)))
-    with open('./ner_files/ner_persion_nervals.json', 'w', encoding='utf8') as json_file:
-        json.dump(ner_dict, json_file, indent=6, ensure_ascii=False)
+    #print("intent_dict size: " + str(len(train_list)))
+    #with open('./intent_files/intent_persion_nervals.json', 'w', encoding='utf8') as json_file:
+    #    json.dump(intent_dict, json_file, indent=6, ensure_ascii=False)
+    #print("ner_dict size: " + str(len(train_list)))
+    #with open('./ner_files/ner_persion_nervals.json', 'w', encoding='utf8') as json_file:
+    #    json.dump(ner_dict, json_file, indent=6, ensure_ascii=False)
 
 
 def create_json_files_part_one_with_persion_nervals():
@@ -6545,3 +7118,4 @@ def if_tow_circle_overlaps(longitude1, longitude2, latitude1, latitude2, radius1
 # names = list(map(lambda x: x[0], cursor.description))
 # conn.close()
 # print(names)
+merge_json_files_with_persion_nervals()
