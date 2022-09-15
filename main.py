@@ -6605,18 +6605,23 @@ def get_coordinates_of_barracks(barracks_id):
 # "آیپی سنسور # چیست؟"
 def get_sensor_IP(sensor_id, sensor_type):
     cursor = conn.cursor()
-    if sensor_type == "sensor":
+    if sensor_type[str(sensor_type)] == "sensor":
         cursor.execute("select ip from sensors \
                      where ID=?", (sensor_id,))
     else:
         cursor.execute("select ip from sensors \
-                     where ID=? and type=?", (sensor_id, sensor_type))
+                     where ID=? and type=?", (sensor_id, sensor_type[str(sensor_type)]))
     rows = cursor.fetchall()
     if rows:
-        print(rows[0][0])
+        output = "آیپی " + str(sensor_type) + " " + str(sensor_id) + "، " + str(rows[0][0]) + " میباشد."
+        print(output)
+        cursor.close()
+        return output
     else:
-        print("This sensor does not exist!")
-    cursor.close()
+        output = "داده ای در رابطه با آیپی " + str(sensor_type) + " " + str(sensor_id) + " یافت نشد."
+        print(output)
+        cursor.close()
+        return output
 
 
 # "سنسور # از چه نوع است؟"
