@@ -6549,10 +6549,15 @@ def get_type_of_barracks(barracks_ID):
                  where ID=?", (barracks_ID,))
     rows = cursor.fetchall()
     if rows:
-        print(rows[0][0])
+        output = "پادگان " + str(barracks_ID) + "از نوع " + str(rows[0][0]) + " میباشد."
+        print(output)
+        cursor.close()
+        return output
     else:
-        print("This barracks doesnt exist!")
-    cursor.close()
+        output = "داده ای در رابطه با نوع پادگان " + str(barracks_ID) + "یافت نشد."
+        print(output)
+        cursor.close()
+        return output
 
 
 # "پادگان # مربوط به دشمن است یا خود؟"
