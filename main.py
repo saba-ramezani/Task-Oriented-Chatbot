@@ -6506,11 +6506,17 @@ def get_sensor_count_based_on_sensor_type(sensor_type, barracks_ID):
     cursor.execute("select count(*) from sensors \
             where type=? and barracks_ID=?", (sensor_type, barracks_ID))
     rows = cursor.fetchall()
+    output = ""
     if rows:
-        print(str(rows[0][0]))
+        output = str(rows[0][0]) + " سنسور از نوع " + str(sensor_type) + " مربوط به پادگان " + str(barracks_ID) + " وجود دارد."
+        print(output)
+        cursor.close()
+        return output
     else:
-        print("None")
-    cursor.close()
+        output = "هیچ سنسوری از نوع " + str(sensor_type) + " مربوط به پادگان " + str(barracks_ID) + " وجود ندارد."
+        print(output)
+        cursor.close()
+        return output
 
 
 # "چند سنسور # مربوط به پادگان # وجود دارد؟"
