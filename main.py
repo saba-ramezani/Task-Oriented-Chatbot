@@ -6704,10 +6704,18 @@ def get_enemy_barracks():
                  where insider=0")
     rows = cursor.fetchall()
     if rows:
-        print(rows[0][0])
+        output = "پادگان های زیر مربوط به دشمن میباشند: \n"
+        for row in rows:
+            output = output + str(row[0]) + "\n"
+        print(output)
+        cursor.close()
+        return output
     else:
-        print("There is no enemy barracks")
-    cursor.close()
+        output = "داده ای در رابطه با پادگان های دشمن یافت نشد"
+        print(output)
+        cursor.close()
+        return output
+
 
 
 # "سنسورهای دشمن در پادگان # کدامند؟"
