@@ -43,6 +43,14 @@ parameter = {
     "ازیموت": "azimuth"
 }
 
+
+parameter_eng_to_per = {
+    "power": "توان",
+    "frequency": "فرکانس",
+    "azimuth": "آزیموت"
+}
+
+
 temp_staff_first_names = ["علی", "رضا", "حسن", "حسین", "امیر", "هادی", "مهدی", "محسن", "فرشید", "مجید",
                           "سعید", "ناصر", "نادر", "محمد", "سپهر", "عباس", "مصطفی", "جعفر", "مهرداد",
                           "مهران", "منصور", "میلاد"]
@@ -6667,18 +6675,26 @@ def get_coordinates_of_sensor(sensor_id, sensor_type):
 # "پارامترهای مربوط به سنسور # دارای چه مقادیری هستند؟"
 def get_all_parameters_of_sensor(sensor_id, sensor_type):
     cursor = conn.cursor()
-    if sensor_type == "sensor":
+    if sensor_type[str(sensor_type)] == "sensor":
         cursor.execute("select parameters from sensors \
                      where ID=?", (sensor_id,))
     else:
         cursor.execute("select parameters from sensors \
-                     where ID=? and type=?", (sensor_id, sensor_type))
+                     where ID=? and type=?", (sensor_id, sensor_type[str(sensor_type)]))
     rows = cursor.fetchall()
     if rows:
-        print(rows[0][0])
+        par_dict = json.loads(rows[0][0])
+        output = "پارامترهای مربوط به " + str(sensor_type) + " " + str(sensor_id) + " دارای مقادیر زیر میباشند: \n"
+        for par, val in par_dict:
+            output = output + str(parameter_eng_to_per[par]) + ": " + str(val) + "\n"
+        print(output)
+        cursor.close()
+        return output
     else:
-        print("This sensor doesnt exist!")
-    cursor.close()
+        output = "داده ای در رابطه با پارامترهای مربوط به " + str(sensor_type) + " " + str(sensor_id) + " یافت نشد."
+        print(output)
+        cursor.close()
+        return output
 
 
 # "پادگان های دشمن کدامند؟"
