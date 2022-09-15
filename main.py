@@ -6568,12 +6568,20 @@ def is_barracks_insider(barracks_ID):
     rows = cursor.fetchall()
     if rows:
         if rows[0][0] == 1:
-            print("Barracks " + str(barracks_ID) + " is insider!")
+            output = "پادگان " + str(barracks_ID) + " خودی است."
+            print(output)
+            cursor.close()
+            return output
         elif rows[0][0] == 0:
-            print("Barracks " + str(barracks_ID) + " is not insider!")
+            output = "پادگان " + str(barracks_ID) + " مربوط به دشمن است."
+            print(output)
+            cursor.close()
+            return output
     else:
-        print("This barracks doesnt exist!")
-    cursor.close()
+        output = "داده ای در رابطه با خودی بودن یا نبودن پادگان " + str(barracks_ID) + " یافت نشد."
+        print(output)
+        cursor.close()
+        return output
 
 
 # "مختصات جغرافیایی پادگان # چیست؟"
