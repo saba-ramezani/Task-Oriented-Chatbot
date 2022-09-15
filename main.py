@@ -6645,18 +6645,23 @@ def get_sensor_type(sensor_id):
 # "مختصات جفرافیایی سنسور # چیست؟"
 def get_coordinates_of_sensor(sensor_id, sensor_type):
     cursor = conn.cursor()
-    if sensor_type == "sensor":
+    if sensor_type[str(sensor_type)] == "sensor":
         cursor.execute("select longitude, latitude from sensors \
                      where ID=?", (sensor_id,))
     else:
         cursor.execute("select longitude, latitude from sensors \
-                     where ID=? and type=?", (sensor_id, sensor_type))
+                     where ID=? and type=?", (sensor_id, sensor_type[str(sensor_type)]))
     rows = cursor.fetchall()
     if rows:
-        print(rows[0][0])
+        output = "طول و عرض جغرافیایی مربوط به " + str(sensor_type) + " " + str(sensor_id) + " به ترتیب برابرند با: " + str(rows[0][0]) + ", " + str(rows[0][1])
+        print(output)
+        cursor.close()
+        return output
     else:
-        print("This sensor doesnt exist!")
-    cursor.close()
+        output = "داده ای در رابطه با مختصات جفرافیایی " + str(sensor_type) + " " + str(sensor_id) + " یافت نشد."
+        print(output)
+        cursor.close()
+        return output
 
 
 # "پارامترهای مربوط به سنسور # دارای چه مقادیری هستند؟"
