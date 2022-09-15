@@ -6631,10 +6631,15 @@ def get_sensor_type(sensor_id):
                  where ID=?", (sensor_id,))
     rows = cursor.fetchall()
     if rows:
-        print(rows[0][0])
+        output = "سنسور " + str(sensor_id) + " از نوع " + str(rows[0][0]) + " است."
+        print(output)
+        cursor.close()
+        return output
     else:
-        print("This sensor doesnt exist!")
-    cursor.close()
+        output = "داده ای در رابطه با نوع سنسور " + str(sensor_id) + " یافت نشد."
+        print(output)
+        cursor.close()
+        return output
 
 
 # "مختصات جفرافیایی سنسور # چیست؟"
