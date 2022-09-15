@@ -54,6 +54,8 @@ conn = sqlite3.connect('test.db')
 print("database Opened successfully!")
 
 
+
+
 def merge_json_files():
     train_list = []
     ner_intent_dict = {}
@@ -6504,9 +6506,8 @@ def create_json_files_part_five_with_persion_nervals():
 def get_sensor_count_based_on_sensor_type(sensor_type, barracks_ID):
     cursor = conn.cursor()
     cursor.execute("select count(*) from sensors \
-            where type=? and barracks_ID=?", (sensor_type, barracks_ID))
+            where type=? and barracks_ID=?", (sensor_type[str(sensor_type)], barracks_ID))
     rows = cursor.fetchall()
-    output = ""
     if rows:
         output = str(rows[0][0]) + " سنسور از نوع " + str(sensor_type) + " مربوط به پادگان " + str(barracks_ID) + " وجود دارد."
         print(output)
@@ -6522,18 +6523,23 @@ def get_sensor_count_based_on_sensor_type(sensor_type, barracks_ID):
 # "چند سنسور # مربوط به پادگان # وجود دارد؟"
 def get_sensor_count_based_on_sensor_status(sensor_type, sensor_status, barracks_ID):
     cursor = conn.cursor()
-    if sensor_type == "sensor":
+    if sensor_type[str(sensor_type)] == "sensor":
         cursor.execute("select count(*) from sensors \
-                   where online=? and barracks_ID=?", (sensor_status, barracks_ID))
+                   where online=? and barracks_ID=?", (sensor_status[str(sensor_status)], barracks_ID))
     else:
         cursor.execute("select count(*) from sensors \
-                     where online=? and barracks_ID=? and type=?", (sensor_status, barracks_ID, sensor_type))
+                     where online=? and barracks_ID=? and type=?", (sensor_status[str(sensor_status)], barracks_ID, sensor_type[str(sensor_type)]))
     rows = cursor.fetchall()
     if rows:
-        print(str(rows[0][0]))
+        output = str(rows[0][0]) + " " + str(sensor_type) + " " + str(sensor_status) + " مربوط به پادگان " + str(barracks_ID) + " وجود دارد."
+        print(output)
+        cursor.close()
+        return output
     else:
-        print("None")
-    cursor.close()
+        output = "هیچ " + str(sensor_type) + " " + str(sensor_status) + "ی مربوط به پادگان " + str(barracks_ID) + " وجود ندارد."
+        print(output)
+        cursor.close()
+        return output
 
 
 # "پادگان # از چه نوع است؟"
