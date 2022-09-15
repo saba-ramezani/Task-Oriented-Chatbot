@@ -6591,10 +6591,15 @@ def get_coordinates_of_barracks(barracks_id):
                  where ID=?", (barracks_id,))
     rows = cursor.fetchall()
     if rows:
-        print("longitude= " + str(rows[0][0]) + " , latitude= " + str(rows[0][1]))
+        output = "طول و عرض جغرافیایی مربوط به پادگان " + str(barracks_id) + " به ترتیب برابرند با: " + str(rows[0][0]) + ", " + str(rows[0][1])
+        print(output)
+        cursor.close()
+        return output
     else:
-        print("There is no barracks with this name")
-    cursor.close()
+        output = "داده ای در رابطه با مختصات جفرافیایی پادگان " + str(barracks_id) + " یافت نشد."
+        print(output)
+        cursor.close()
+        return output
 
 
 # "آیپی سنسور # چیست؟"
