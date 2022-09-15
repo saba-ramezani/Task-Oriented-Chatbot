@@ -6717,23 +6717,28 @@ def get_enemy_barracks():
         return output
 
 
-
 # "سنسورهای دشمن در پادگان # کدامند؟"
 def get_enemy_sensors_based_on_barracks_id(barracks_id, sensor_type):
     cursor = conn.cursor()
-    if sensor_type == "sensor":
+    if sensor_type[str(sensor_type)] == "sensor":
         cursor.execute("select ID from sensors \
                      where barracks_ID=? and insider=0", (barracks_id,))
     else:
         cursor.execute("select ID from sensors \
-                     where barracks_ID=? and type=? and insider=0", (barracks_id, sensor_type))
+                     where barracks_ID=? and type=? and insider=0", (barracks_id, sensor_type[str(sensor_type)]))
     rows = cursor.fetchall()
     if rows:
+        output = str(sensor_type) + " های دشمن در پادگان " + str(barracks_id) + " به شرح زیر میباشند: \n"
         for row in rows:
-            print(row)
+            output = output + str(row[0]) + "\n"
+        print(output)
+        cursor.close()
+        return output
     else:
-        print("Nothing found! ")
-    cursor.close()
+        output = "داده ای در رابطه با " + str(sensor_type) + " های دشمن در پادگان " + str(barracks_id) + "یافت نشد."
+        print(output)
+        cursor.close()
+        return output
 
 
 # "#های # کشور چه وضعیتی دارند؟"
