@@ -56,7 +56,11 @@ parameter = {
     "توان": "power",
     "فرکانس": "frequency",
     "آزیموت": "azimuth",
-    "ازیموت": "azimuth"
+    "ازیموت": "azimuth",
+    "توانی": "power",
+    "فرکانسی": "frequency",
+    "آزیموتی": "azimuth",
+    "ازیموتی": "azimuth"
 }
 
 
