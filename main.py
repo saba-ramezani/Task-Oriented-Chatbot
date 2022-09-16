@@ -7302,24 +7302,27 @@ def get_access_level_of_a_staff(staff_name, rank):
 def is_staff_active(staff_name, rank):
     cursor = conn.cursor()
     cursor.execute("select active, first_name, last_name from staff \
-                 where rank=?", (rank,))
+                 where rank=?", (rank_fills[str(rank)],))
     rows = cursor.fetchall()
     if rows:
+        output = str(rank) + " " + str(staff_name) + " "
         for row in rows:
-            if row[2] == staff_name:
-                if row[0] == 1:
-                    print(rank + " " + staff_name + " is active!")
-                elif row[0] == 0:
-                    print(rank + " " + staff_name + " is blocked!")
-                return
-            elif str(row[1]) + " " + str(row[2]) == staff_name:
-                if row[0] == 1:
-                    print(rank + " " + staff_name + " is active!")
-                elif row[0] == 0:
-                    print(rank + " " + staff_name + " is blocked!")
-                return
-    print(rank + " " + staff_name + " does not exist!")
-    cursor.close()
+            if str(row[2]) == staff_name or str(row[1]) + " " + str(row[2]) == staff_name:
+                if row[0] == 0:
+                    output = output + " بلاک میباشد."
+                    print(output)
+                    cursor.close()
+                    return output
+                elif row[0] == 1:
+                    output = output + " فعال میباشد."
+                    print(output)
+                    cursor.close()
+                    return output
+    else:
+        output = "داده ای در رابطه با فعال یا بلاک بودن " + str(rank) + " " + str(staff_name) + "یافت نشد."
+        print(output)
+        cursor.close()
+        return output
 
 
 # "ارتباط پادگان # با پادگان # از چه نوع است؟"
