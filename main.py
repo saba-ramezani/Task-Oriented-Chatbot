@@ -6865,21 +6865,24 @@ def get_sensors_status_based_on_location_and_sensor_type(area, sensor_type):
 # "سنسور # با چه #(پارامتر)ی کار میکند؟"
 def get_parameter_of_sensor_based_on_parameter_type(sensor_id, parameter, sensor_type):
     cursor = conn.cursor()
-    if sensor_type == "sensor":
+    if sensor_type[str(sensor_type)] == "sensor":
         cursor.execute("select parameters from sensors \
                      where ID=?", (sensor_id,))
     else:
         cursor.execute("select parameters from sensors \
-                     where ID=? and type=?", (sensor_id, sensor_type))
-    cursor.execute("select parameters from sensors \
-                 where ID=? and", (sensor_id,))
+                     where ID=? and type=?", (sensor_id, sensor_type[str(sensor_type)]))
     rows = cursor.fetchall()
     if rows:
         parameter_dict = json.loads(rows[0][0])
-        print(parameter_dict[str(parameter)])
+        output = parameter_eng_to_per[str(parameter[str(parameter)])] + "مربوط به " + str(sensor_type) + " " + str(sensor_id) + " برابر است با: " + str(parameter_dict[str(parameter)])
+        print(output)
+        cursor.close()
+        return output
     else:
-        print("This sensor doesnt exist!")
-    cursor.close()
+        output = "داده ای در رابطه با " + parameter_eng_to_per[str(parameter[str(parameter)])] + " مربوط به " + str(sensor_type) + " " + str(sensor_id) + "یافت نشد."
+        print(output)
+        cursor.close()
+        return output
 
 
 # "حوزه استحفاظی سنسور # با حوزه استحفاظی سنسور # تداخل دارد؟"
