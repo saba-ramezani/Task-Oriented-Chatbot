@@ -36,6 +36,22 @@ two_part_area = {"شمال غربی": "north west",
                  "شرق میانه": "middle east",
                  "غرب میانه": "middle west"}
 
+area = {
+                 "شمال غربی": "north west",
+                 "شمال شرقی": "north east",
+                 "شمال میانه": "middle north",
+                 "جنوب غربی": "west south",
+                 "حنوب شرقی": "east south",
+                 "جنوب میانه": "middle south",
+                 "شرق میانه": "middle east",
+                 "غرب میانه": "middle west",
+                 "شمال": "north",
+                 "جنوب": "south",
+                 "شرق": "east",
+                 "غرب": "west",
+                 "مرکز": "center"
+}
+
 parameter = {
     "توان": "power",
     "فرکانس": "frequency",
@@ -6744,93 +6760,102 @@ def get_enemy_sensors_based_on_barracks_id(barracks_id, sensor_type):
 # "#های # کشور چه وضعیتی دارند؟"
 def get_sensors_status_based_on_location_and_sensor_type(area, sensor_type):
     cursor = conn.cursor()
-    if sensor_type == "sensor":
-        if area == "north":
+    if sensor_type[str(sensor_type)] == "sensor":
+        if area[str(area)] == "north":
             cursor.execute("select ID,online from sensors \
                          where longitude > 1 and latitude > 1")
-        elif area == "north east":
+        elif area[str(area)] == "north east":
             cursor.execute("select ID,online from sensors \
                          where longitude > 1 and latitude > 1")
-        elif area == "north west":
+        elif area[str(area)] == "north west":
             cursor.execute("select ID,online from sensors \
                          where longitude > 1 and latitude > 1")
-        elif area == "middle north":
+        elif area[str(area)] == "middle north":
             cursor.execute("select ID,online from sensors \
                          where longitude > 1 and latitude > 1")
-        elif area == "south":
+        elif area[str(area)] == "south":
             cursor.execute("select ID,online from sensors \
                          where longitude > 1 and latitude > 1")
-        elif area == "south east":
+        elif area[str(area)] == "south east":
             cursor.execute("select ID,online from sensors \
                          where longitude > 1 and latitude > 1")
-        elif area == "south west":
+        elif area[str(area)] == "south west":
             cursor.execute("select ID,online from sensors \
                          where longitude > 1 and latitude > 1")
-        elif area == "middle south":
+        elif area[str(area)] == "middle south":
             cursor.execute("select ID,online from sensors \
                          where longitude > 1 and latitude > 1")
-        elif area == "east":
+        elif area[str(area)] == "east":
             cursor.execute("select ID,online from sensors \
                          where longitude > 1 and latitude > 1")
-        elif area == "middle east":
+        elif area[str(area)] == "middle east":
             cursor.execute("select ID,online from sensors \
                          where longitude > 1 and latitude > 1")
-        elif area == "west":
+        elif area[str(area)] == "west":
             cursor.execute("select ID,online from sensors \
                          where longitude > 1 and latitude > 1")
-        elif area == "middle west":
+        elif area[str(area)] == "middle west":
             cursor.execute("select ID,online from sensors \
                          where longitude > 1 and latitude > 1")
-        elif area == "center":
+        elif area[str(area)] == "center":
             cursor.execute("select ID,online from sensors \
                          where longitude > 1 and latitude > 1")
     else:
-        if area == "north":
+        if area[str(area)] == "north":
+            cursor.execute("select ID,online from sensors \
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+        elif area[str(area)] == "north east":
+            cursor.execute("select ID,online from sensors \
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+        elif area[str(area)] == "north west":
+            cursor.execute("select ID,online from sensors \
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+        elif area[str(area)] == "middle north":
+            cursor.execute("select ID,online from sensors \
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+        elif area[str(area)] == "south":
+            cursor.execute("select ID,online from sensors \
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+        elif area[str(area)] == "south east":
+            cursor.execute("select ID,online from sensors \
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+        elif area[str(area)] == "south west":
+            cursor.execute("select ID,online from sensors \
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+        elif area[str(area)] == "middle south":
             cursor.execute("select ID,online from sensors \
                          where longitude > 1 and latitude > 1 and type=?", (sensor_type,))
-        elif area == "north east":
+        elif area[str(area)] == "east":
             cursor.execute("select ID,online from sensors \
                          where longitude > 1 and latitude > 1 and type=?", (sensor_type,))
-        elif area == "north west":
+        elif area[str(area)] == "middle east":
             cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type,))
-        elif area == "middle north":
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+        elif area[str(area)] == "west":
             cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type,))
-        elif area == "south":
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+        elif area[str(area)] == "middle west":
             cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type,))
-        elif area == "south east":
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+        elif area[str(area)] == "center":
             cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type,))
-        elif area == "south west":
-            cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type,))
-        elif area == "middle south":
-            cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type,))
-        elif area == "east":
-            cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type,))
-        elif area == "middle east":
-            cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type,))
-        elif area == "west":
-            cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type,))
-        elif area == "middle west":
-            cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type,))
-        elif area == "center":
-            cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type,))
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
     rows = cursor.fetchall()
     if rows:
+        output = "وضعیت " + str(sensor_type) + " های " + str(area) + " کشور به شرح زیر میباشد: \n"
         for row in rows:
-            print(row)
+            if row[1] == 1:
+                output = output + str(sensor_type) + " " + str(row[0]) + ": آنلاین" + "\n"
+            elif row[1] == 0:
+                output = output + str(sensor_type) + " " + str(row[0]) + ": آفلاین" + "\n"
+        print(output)
+        cursor.close()
+        return output
     else:
-        print("Nothing found")
-    cursor.close()
+        output = "داده ای در رابطه با " + str(sensor_type) + " های " + str(area) + " کشور یافت نشد."
+        print(output)
+        cursor.close()
+        return output
 
 
 # "سنسور # با چه #(پارامتر)ی کار میکند؟"
