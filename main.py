@@ -6780,7 +6780,7 @@ def create_json_files_part_five_with_persion_nervals():
 def get_sensor_count_based_on_sensor_type(sensor_type, barracks_ID):
     cursor = conn.cursor()
     cursor.execute("select count(*) from sensors \
-            where type=? and barracks_ID=?", (sensor_type[str(sensor_type)], barracks_ID))
+            where type=? and barracks_ID=?", (sensor_type_fills[str(sensor_type)], barracks_ID))
     rows = cursor.fetchall()
     if rows:
         output = str(rows[0][0]) + " سنسور از نوع " + str(sensor_type) + " مربوط به پادگان " + str(barracks_ID) + " وجود دارد."
@@ -6797,12 +6797,12 @@ def get_sensor_count_based_on_sensor_type(sensor_type, barracks_ID):
 # "چند سنسور # مربوط به پادگان # وجود دارد؟"
 def get_sensor_count_based_on_sensor_status(sensor_type, sensor_status, barracks_ID):
     cursor = conn.cursor()
-    if sensor_type[str(sensor_type)] == "sensor":
+    if sensor_type_fills[str(sensor_type)] == "sensor":
         cursor.execute("select count(*) from sensors \
                    where online=? and barracks_ID=?", (sensor_status[str(sensor_status)], barracks_ID))
     else:
         cursor.execute("select count(*) from sensors \
-                     where online=? and barracks_ID=? and type=?", (sensor_status[str(sensor_status)], barracks_ID, sensor_type[str(sensor_type)]))
+                     where online=? and barracks_ID=? and type=?", (sensor_status[str(sensor_status)], barracks_ID, sensor_type_fills[str(sensor_type)]))
     rows = cursor.fetchall()
     if rows:
         output = str(rows[0][0]) + " " + str(sensor_type) + " " + str(sensor_status) + " مربوط به پادگان " + str(barracks_ID) + " وجود دارد."
@@ -6879,12 +6879,12 @@ def get_coordinates_of_barracks(barracks_id):
 # "آیپی سنسور # چیست؟"
 def get_sensor_IP(sensor_id, sensor_type):
     cursor = conn.cursor()
-    if sensor_type[str(sensor_type)] == "sensor":
+    if sensor_type_fills[str(sensor_type)] == "sensor":
         cursor.execute("select ip from sensors \
                      where ID=?", (sensor_id,))
     else:
         cursor.execute("select ip from sensors \
-                     where ID=? and type=?", (sensor_id, sensor_type[str(sensor_type)]))
+                     where ID=? and type=?", (sensor_id, sensor_type_fills[str(sensor_type)]))
     rows = cursor.fetchall()
     if rows:
         output = "آیپی " + str(sensor_type) + " " + str(sensor_id) + "، " + str(rows[0][0]) + " میباشد."
@@ -6919,12 +6919,12 @@ def get_sensor_type(sensor_id):
 # "مختصات جفرافیایی سنسور # چیست؟"
 def get_coordinates_of_sensor(sensor_id, sensor_type):
     cursor = conn.cursor()
-    if sensor_type[str(sensor_type)] == "sensor":
+    if sensor_type_fills[str(sensor_type)] == "sensor":
         cursor.execute("select longitude, latitude from sensors \
                      where ID=?", (sensor_id,))
     else:
         cursor.execute("select longitude, latitude from sensors \
-                     where ID=? and type=?", (sensor_id, sensor_type[str(sensor_type)]))
+                     where ID=? and type=?", (sensor_id, sensor_type_fills[str(sensor_type)]))
     rows = cursor.fetchall()
     if rows:
         output = "طول و عرض جغرافیایی مربوط به " + str(sensor_type) + " " + str(sensor_id) + " به ترتیب برابرند با: " + str(rows[0][0]) + ", " + str(rows[0][1])
@@ -6941,12 +6941,12 @@ def get_coordinates_of_sensor(sensor_id, sensor_type):
 # "پارامترهای مربوط به سنسور # دارای چه مقادیری هستند؟"
 def get_all_parameters_of_sensor(sensor_id, sensor_type):
     cursor = conn.cursor()
-    if sensor_type[str(sensor_type)] == "sensor":
+    if sensor_type_fills[str(sensor_type)] == "sensor":
         cursor.execute("select parameters from sensors \
                      where ID=?", (sensor_id,))
     else:
         cursor.execute("select parameters from sensors \
-                     where ID=? and type=?", (sensor_id, sensor_type[str(sensor_type)]))
+                     where ID=? and type=?", (sensor_id, sensor_type_fills[str(sensor_type)]))
     rows = cursor.fetchall()
     if rows:
         par_dict = json.loads(rows[0][0])
@@ -6986,12 +6986,12 @@ def get_enemy_barracks():
 # "سنسورهای دشمن در پادگان # کدامند؟"
 def get_enemy_sensors_based_on_barracks_id(barracks_id, sensor_type):
     cursor = conn.cursor()
-    if sensor_type[str(sensor_type)] == "sensor":
+    if sensor_type_fills[str(sensor_type)] == "sensor":
         cursor.execute("select ID from sensors \
                      where barracks_ID=? and insider=0", (barracks_id,))
     else:
         cursor.execute("select ID from sensors \
-                     where barracks_ID=? and type=? and insider=0", (barracks_id, sensor_type[str(sensor_type)]))
+                     where barracks_ID=? and type=? and insider=0", (barracks_id, sensor_type_fills[str(sensor_type)]))
     rows = cursor.fetchall()
     if rows:
         output = str(sensor_type) + " های دشمن در پادگان " + str(barracks_id) + " به شرح زیر میباشند: \n"
@@ -7010,7 +7010,7 @@ def get_enemy_sensors_based_on_barracks_id(barracks_id, sensor_type):
 # "#های # کشور چه وضعیتی دارند؟"
 def get_sensors_status_based_on_location_and_sensor_type(area, sensor_type):
     cursor = conn.cursor()
-    if sensor_type[str(sensor_type)] == "sensor":
+    if sensor_type_fills[str(sensor_type)] == "sensor":
         if area[str(area)] == "north":
             cursor.execute("select ID,online from sensors \
                          where longitude > 1 and latitude > 1")
@@ -7053,43 +7053,43 @@ def get_sensors_status_based_on_location_and_sensor_type(area, sensor_type):
     else:
         if area[str(area)] == "north":
             cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type_fills[str(sensor_type)],))
         elif area[str(area)] == "north east":
             cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type_fills[str(sensor_type)],))
         elif area[str(area)] == "north west":
             cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type_fills[str(sensor_type)],))
         elif area[str(area)] == "middle north":
             cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type_fills[str(sensor_type)],))
         elif area[str(area)] == "south":
             cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type_fills[str(sensor_type)],))
         elif area[str(area)] == "south east":
             cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type_fills[str(sensor_type)],))
         elif area[str(area)] == "south west":
             cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type_fills[str(sensor_type)],))
         elif area[str(area)] == "middle south":
             cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type,))
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type_fills[str(sensor_type)],))
         elif area[str(area)] == "east":
             cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type,))
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type_fills[str(sensor_type)],))
         elif area[str(area)] == "middle east":
             cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type_fills[str(sensor_type)],))
         elif area[str(area)] == "west":
             cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type_fills[str(sensor_type)],))
         elif area[str(area)] == "middle west":
             cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type_fills[str(sensor_type)],))
         elif area[str(area)] == "center":
             cursor.execute("select ID,online from sensors \
-                         where longitude > 1 and latitude > 1 and type=?", (sensor_type[str(sensor_type)],))
+                         where longitude > 1 and latitude > 1 and type=?", (sensor_type_fills[str(sensor_type)],))
     rows = cursor.fetchall()
     if rows:
         output = "وضعیت " + str(sensor_type) + " های " + str(area) + " کشور به شرح زیر میباشد: \n"
@@ -7111,16 +7111,16 @@ def get_sensors_status_based_on_location_and_sensor_type(area, sensor_type):
 # "سنسور # با چه #(پارامتر)ی کار میکند؟"
 def get_parameter_of_sensor_based_on_parameter_type(sensor_id, parameter, sensor_type):
     cursor = conn.cursor()
-    if sensor_type[str(sensor_type)] == "sensor":
+    if sensor_type_fills[str(sensor_type)] == "sensor":
         cursor.execute("select parameters from sensors \
                      where ID=?", (sensor_id,))
     else:
         cursor.execute("select parameters from sensors \
-                     where ID=? and type=?", (sensor_id, sensor_type[str(sensor_type)]))
+                     where ID=? and type=?", (sensor_id, sensor_type_fills[str(sensor_type)]))
     rows = cursor.fetchall()
     if rows:
         parameter_dict = json.loads(rows[0][0])
-        output = parameter_eng_to_per[str(parameter[str(parameter)])] + "مربوط به " + str(sensor_type) + " " + str(sensor_id) + " برابر است با: " + str(parameter_dict[str(parameter)])
+        output = parameter_eng_to_per[str(parameter_fills[str(parameter)])] + "مربوط به " + str(sensor_type) + " " + str(sensor_id) + " برابر است با: " + str(parameter_dict[str(parameter)])
         print(output)
         cursor.close()
         return output
