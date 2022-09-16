@@ -57,6 +57,12 @@ rank_fills = {
     "سروانهای": "sarvan",
     "امیرهای": "amir"}
 
+rank_eng_to_per = {
+    "sarhang": "سرهنگ",
+    "sarvan": "سروان",
+    "amir": "امیر"
+}
+
 one_part_area = {"شمال": "north",
                  "جنوب": "south",
                  "شرق": "east",
@@ -3878,87 +3884,7 @@ def merge_json_files_with_persion_nervals():
         # ner_dict[text] = ner
 
         # "پادگان های دشمن کدامند؟"
-        text = "پادگان های دشمن کدامند؟ "
-        # train
-        # train_dict = {
-        #    "text": text,
-        #    "slots": {},
-        #    "query": {"intent": "get_enemy_barracks"}
-        # }
-        # train_list.append(train_dict)
-        # ner_intent
-        ner_intent = {
-            "TEXT": text.split(),
-            "NERTAGS": [
-                "O",
-                "O",
-                "O",
-                "O"
-            ],
-            "NERVALS": {
-            },
-            "INTENTS": [
-                "get_enemy_barracks"
-            ]
-        }
-        ner_intent_dict[text] = ner_intent
-        # intent
-        # intent = {"INTENTS": ["get_enemy_barracks"]}
-        # intent_dict[text] = intent
-        ## ner
-        # ner = {
-        #    "TEXT": text.split(),
-        #    "NERTAGS": [
-        #        "O",
-        #        "O",
-        #        "O",
-        #        "O"
-        #    ],
-        #    "NERVALS": {
-        #    }
-        # }
-        # ner_dict[text] = ner
 
-        # "پادگانهای دشمن کدامند؟"
-        text = "پادگانهای دشمن کدامند؟ "
-        # train
-        # train_dict = {
-        #    "text": text,
-        #    "slots": {},
-        #    "query": {"intent": "get_enemy_barracks"}
-        # }
-        # train_list.append(train_dict)
-        # ner_intent
-        ner_intent = {
-            "TEXT": text.split(),
-            "NERTAGS": [
-                "O",
-                "O",
-                "O"
-            ],
-            "NERVALS": {
-            },
-            "INTENTS": [
-                "get_enemy_barracks"
-            ]
-        }
-        ner_intent_dict[text] = ner_intent
-        # intent
-        # intent = {"INTENTS": ["get_enemy_barracks"]}
-        # intent_dict[text] = intent
-        ## ner
-        # ner = {
-        #    "TEXT": text.split(),
-        #    "NERTAGS": [
-        #        "O",
-        #        "O",
-        #        "O",
-        #        "O"
-        #    ],
-        #    "NERVALS": {
-        #    }
-        # }
-        # ner_dict[text] = ner
 
     for key2 in one_part_area:
         for key in sensor_type:
@@ -3991,7 +3917,7 @@ def merge_json_files_with_persion_nervals():
                     "area": str(key2)
                 },
                 "INTENTS": [
-                    "get_enemy_sensors_based_on_barracks_id"
+                    "get_sensors_status_based_on_location_and_sensor_type"
                 ]
             }
             ner_intent_dict[text] = ner_intent
@@ -4045,7 +3971,7 @@ def merge_json_files_with_persion_nervals():
                     "area": str(key2)
                 },
                 "INTENTS": [
-                    "get_enemy_sensors_based_on_barracks_id"
+                    "get_sensors_status_based_on_location_and_sensor_type"
                 ]
             }
             ner_intent_dict[text] = ner_intent
@@ -4099,7 +4025,7 @@ def merge_json_files_with_persion_nervals():
                     "area": str(key2)
                 },
                 "INTENTS": [
-                    "get_enemy_sensors_based_on_barracks_id"
+                    "get_sensors_status_based_on_location_and_sensor_type"
                 ]
             }
             ner_intent_dict[text] = ner_intent
