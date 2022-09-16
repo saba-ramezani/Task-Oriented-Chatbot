@@ -7378,10 +7378,15 @@ def get_channel_of_two_barracks_link(barracks_id_1, barracks_id_2):
                    (barracks_id_1, barracks_id_2, barracks_id_2, barracks_id_1))
     rows = cursor.fetchall()
     if rows:
-        print(rows[0][0])
+        output = "ارتباط پادگان " + str(barracks_id_1) + " با پادگان " + str(barracks_id_2) + " روی کانال " + str(rows[0][0]) + " میباشد."
+        print(output)
+        cursor.close()
+        return output
     else:
-        print("These two barracks are not connected")
-    cursor.close()
+        output = "داده ای در رابطه با کانال ارتباط پادگان " + str(barracks_id_1) + " با پادگان " + str(barracks_id_2) + " یافت نشد."
+        print(output)
+        cursor.close()
+        return output
 
 
 # "پادگان های زیر مجموعه پادگان # کدامند؟"
