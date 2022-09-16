@@ -7352,13 +7352,22 @@ def get_status_of_two_barracks_link(barracks_id_1, barracks_id_2):
                    (barracks_id_1, barracks_id_2, barracks_id_2, barracks_id_1))
     rows = cursor.fetchall()
     if rows:
-        if rows[0][0] == 1:
-            print("This link is online")
-        elif rows[0][0] == 0:
-            print("This link is offline")
+        output = "ارتباط پادگان " + str(barracks_id_1) + " با پادگان " + str(barracks_id_2) + " "
+        if rows[0][0] == 0:
+            output = output + "آفلاین میباشد."
+            print(output)
+            cursor.close()
+            return output
+        elif rows[0][0] == 1:
+            output = output + "آنلاین میباشد."
+            print(output)
+            cursor.close()
+            return output
     else:
-        print("These two barracks are not connected")
-    cursor.close()
+        output = "داده ای در رابطه با آنلاین یا آفلاین بودن ارتباط پادگان " + str(barracks_id_1) + " با پادگان " + str(barracks_id_2) + " یافت نشد."
+        print(output)
+        cursor.close()
+        return output
 
 
 # "ارتباط پادگان # با پادگان # روی چه کانالی میباشد؟"
