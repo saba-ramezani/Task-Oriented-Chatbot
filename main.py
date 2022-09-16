@@ -7396,11 +7396,17 @@ def get_sub_barracks_of_barracks(barracks_id):
                  where ID=?", (barracks_id,))
     rows = cursor.fetchall()
     if rows:
+        output = "پادگان های زیرمجموعه پادگان " + str(barracks_id) + " به شرح زیر میباشند: \n"
         for row in rows:
-            print(row)
+            output = output + str(row[0]) + "\n"
+        print(output)
+        cursor.close()
+        return output
     else:
-        print("This barracks has no subBarracks")
-    cursor.close()
+        output = "داده ای در رابطه با پادگان های زیرمجموعه پادگان " + str(barracks_id) + " یافت نشد."
+        print(output)
+        cursor.close()
+        return output
 
 
 def if_tow_circle_overlaps(longitude1, longitude2, latitude1, latitude2, radius1, radius2):
