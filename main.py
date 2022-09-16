@@ -7134,7 +7134,7 @@ def get_parameter_of_sensor_based_on_parameter_type(sensor_id, parameter, sensor
 # "حوزه استحفاظی سنسور # با حوزه استحفاظی سنسور # تداخل دارد؟"
 def check_if_two_sensors_interfere(sensor_id_1, sensor_id_2, sensor_type_1, sensor_type_2):
     cursor = conn.cursor()
-    if sensor_type_1 == "sensor":
+    if sensor_type_fills[str(sensor_type_1)] == "sensor":
         cursor.execute("select longitude, latitude, radius from sensors \
                              where ID=?", (sensor_id_1,))
         rows = cursor.fetchall()
@@ -7145,11 +7145,13 @@ def check_if_two_sensors_interfere(sensor_id_1, sensor_id_2, sensor_type_1, sens
                 "radius": rows[0][2]
             }
         else:
-            print("This sensor doesnt exist!")
-            return
+            output = "داده ای در رابطه با حوزه استحفاظی " + str(sensor_type_1) + " " + str(sensor_id_1) + " یافت نشد."
+            print(output)
+            cursor.close()
+            return output
     else:
         cursor.execute("select longitude, latitude, radius from sensors \
-                             where ID=? and type=?", (sensor_id_1, sensor_type_1))
+                             where ID=? and type=?", (sensor_id_1, sensor_type_fills[str(sensor_type_1)]))
         rows = cursor.fetchall()
         if rows:
             dict1 = {
@@ -7158,9 +7160,11 @@ def check_if_two_sensors_interfere(sensor_id_1, sensor_id_2, sensor_type_1, sens
                 "radius": rows[0][2]
             }
         else:
-            print("This sensor doesnt exist!")
-            return
-    if sensor_type_2 == "sensor":
+            output = "داده ای در رابطه با حوزه استحفاظی " + str(sensor_type_1) + " " + str(sensor_id_1) + " یافت نشد."
+            print(output)
+            cursor.close()
+            return output
+    if sensor_type_fills[str(sensor_type_2)] == "sensor":
         cursor.execute("select longitude, latitude, radius from sensors \
                              where ID=?", (sensor_id_2,))
         rows = cursor.fetchall()
@@ -7171,11 +7175,13 @@ def check_if_two_sensors_interfere(sensor_id_1, sensor_id_2, sensor_type_1, sens
                 "radius": rows[0][2]
             }
         else:
-            print("This sensor doesnt exist!")
-            return
+            output = "داده ای در رابطه با حوزه استحفاظی " + str(sensor_type_2) + " " + str(sensor_id_2) + " یافت نشد."
+            print(output)
+            cursor.close()
+            return output
     else:
         cursor.execute("select longitude, latitude, radius from sensors \
-                             where ID=? and type=?", (sensor_id_2, sensor_type_2))
+                             where ID=? and type=?", (sensor_id_2, sensor_type_fills[str(sensor_type_2)]))
         rows = cursor.fetchall()
         if rows:
             dict2 = {
@@ -7184,16 +7190,22 @@ def check_if_two_sensors_interfere(sensor_id_1, sensor_id_2, sensor_type_1, sens
                 "radius": rows[0][2]
             }
         else:
-            print("This sensor doesnt exist!")
-            return
+            output = "داده ای در رابطه با حوزه استحفاظی " + str(sensor_type_1) + " " + str(sensor_id_1) + " یافت نشد."
+            print(output)
+            cursor.close()
+            return output
     cursor.close()
     if if_tow_circle_overlaps(dict1["longitude"], dict2["longitude"], dict1["latitude"], dict2["latitude"],
                               dict1["radius"], dict2["radius"]):
-        print("Yes!")
-        return 1
+        output = "حوزه استحفاظی " + str(sensor_type_1) + " " + str(sensor_id_1) + " با حوزه استحفاظی " + str(sensor_type_2) + " " + str(sensor_id_2) + " تداخل دارد."
+        print(output)
+        cursor.close()
+        return output
     else:
-        print("No!")
-        return 0
+        output = "حوزه استحفاظی " + str(sensor_type_1) + " " + str(sensor_id_1) + " با حوزه استحفاظی " + str(sensor_type_2) + " " + str(sensor_id_2) + " تداخل ندارد."
+        print(output)
+        cursor.close()
+        return output
 
 
 # "حوزه استحفاظی چه سنسورهایی با یکدیگر تداخل ندارد؟"
