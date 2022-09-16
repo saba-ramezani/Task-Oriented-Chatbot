@@ -6705,13 +6705,13 @@ def get_sensor_count_based_on_sensor_type(sensor_type, barracks_ID):
             where type=? and barracks_ID=?", (sensor_type_fills[str(sensor_type)], barracks_ID))
     rows = cursor.fetchall()
     if rows:
-        output = str(rows[0][0]) + " سنسور از نوع " + str(sensor_type) + " مربوط به پادگان " + str(
+        output = str(rows[0][0]) + " سنسور از نوع " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]]) + " مربوط به پادگان " + str(
             barracks_ID) + " وجود دارد."
         print(output)
         cursor.close()
         return output
     else:
-        output = "هیچ سنسوری از نوع " + str(sensor_type) + " مربوط به پادگان " + str(barracks_ID) + " وجود ندارد."
+        output = "هیچ سنسوری از نوع " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]]) + " مربوط به پادگان " + str(barracks_ID) + " وجود ندارد."
         print(output)
         cursor.close()
         return output
@@ -6729,13 +6729,13 @@ def get_sensor_count_based_on_sensor_status(sensor_type, sensor_status, barracks
                        (sensor_status[str(sensor_status)], barracks_ID, sensor_type_fills[str(sensor_type)]))
     rows = cursor.fetchall()
     if rows:
-        output = str(rows[0][0]) + " " + str(sensor_type) + " " + str(sensor_status) + " مربوط به پادگان " + str(
+        output = str(rows[0][0]) + " " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]]) + " " + str(sensor_status) + " مربوط به پادگان " + str(
             barracks_ID) + " وجود دارد."
         print(output)
         cursor.close()
         return output
     else:
-        output = "هیچ " + str(sensor_type) + " " + str(sensor_status) + "ی مربوط به پادگان " + str(
+        output = "هیچ " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]]) + " " + str(sensor_status) + "ی مربوط به پادگان " + str(
             barracks_ID) + " وجود ندارد."
         print(output)
         cursor.close()
@@ -6814,12 +6814,12 @@ def get_sensor_IP(sensor_id, sensor_type):
                      where ID=? and type=?", (sensor_id, sensor_type_fills[str(sensor_type)]))
     rows = cursor.fetchall()
     if rows:
-        output = "آیپی " + str(sensor_type) + " " + str(sensor_id) + "، " + str(rows[0][0]) + " میباشد."
+        output = "آیپی " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]]) + " " + str(sensor_id) + "، " + str(rows[0][0]) + " میباشد."
         print(output)
         cursor.close()
         return output
     else:
-        output = "داده ای در رابطه با آیپی " + str(sensor_type) + " " + str(sensor_id) + " یافت نشد."
+        output = "داده ای در رابطه با آیپی " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]]) + " " + str(sensor_id) + " یافت نشد."
         print(output)
         cursor.close()
         return output
@@ -6854,13 +6854,13 @@ def get_coordinates_of_sensor(sensor_id, sensor_type):
                      where ID=? and type=?", (sensor_id, sensor_type_fills[str(sensor_type)]))
     rows = cursor.fetchall()
     if rows:
-        output = "طول و عرض جغرافیایی مربوط به " + str(sensor_type) + " " + str(
+        output = "طول و عرض جغرافیایی مربوط به " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]]) + " " + str(
             sensor_id) + " به ترتیب برابرند با: " + str(rows[0][0]) + ", " + str(rows[0][1])
         print(output)
         cursor.close()
         return output
     else:
-        output = "داده ای در رابطه با مختصات جفرافیایی " + str(sensor_type) + " " + str(sensor_id) + " یافت نشد."
+        output = "داده ای در رابطه با مختصات جفرافیایی " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]]) + " " + str(sensor_id) + " یافت نشد."
         print(output)
         cursor.close()
         return output
@@ -6878,14 +6878,14 @@ def get_all_parameters_of_sensor(sensor_id, sensor_type):
     rows = cursor.fetchall()
     if rows:
         par_dict = json.loads(rows[0][0])
-        output = "پارامترهای مربوط به " + str(sensor_type) + " " + str(sensor_id) + " دارای مقادیر زیر میباشند: \n"
+        output = "پارامترهای مربوط به " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]]) + " " + str(sensor_id) + " دارای مقادیر زیر میباشند: \n"
         for par, val in par_dict:
             output = output + str(parameter_eng_to_per[par]) + ": " + str(val) + "\n"
         print(output)
         cursor.close()
         return output
     else:
-        output = "داده ای در رابطه با پارامترهای مربوط به " + str(sensor_type) + " " + str(sensor_id) + " یافت نشد."
+        output = "داده ای در رابطه با پارامترهای مربوط به " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]]) + " " + str(sensor_id) + " یافت نشد."
         print(output)
         cursor.close()
         return output
@@ -6922,14 +6922,14 @@ def get_enemy_sensors_based_on_barracks_id(barracks_id, sensor_type):
                      where barracks_ID=? and type=? and insider=0", (barracks_id, sensor_type_fills[str(sensor_type)]))
     rows = cursor.fetchall()
     if rows:
-        output = str(sensor_type) + " های دشمن در پادگان " + str(barracks_id) + " به شرح زیر میباشند: \n"
+        output = str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]]) + " های دشمن در پادگان " + str(barracks_id) + " به شرح زیر میباشند: \n"
         for row in rows:
             output = output + str(row[0]) + "\n"
         print(output)
         cursor.close()
         return output
     else:
-        output = "داده ای در رابطه با " + str(sensor_type) + " های دشمن در پادگان " + str(barracks_id) + "یافت نشد."
+        output = "داده ای در رابطه با " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]]) + " های دشمن در پادگان " + str(barracks_id) + "یافت نشد."
         print(output)
         cursor.close()
         return output
@@ -7020,17 +7020,17 @@ def get_sensors_status_based_on_location_and_sensor_type(area, sensor_type):
                          where longitude > 1 and latitude > 1 and type=?", (sensor_type_fills[str(sensor_type)],))
     rows = cursor.fetchall()
     if rows:
-        output = "وضعیت " + str(sensor_type) + " های " + str(area) + " کشور به شرح زیر میباشد: \n"
+        output = "وضعیت " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]]) + " های " + str(area) + " کشور به شرح زیر میباشد: \n"
         for row in rows:
             if row[1] == 1:
-                output = output + str(sensor_type) + " " + str(row[0]) + ": آنلاین" + "\n"
+                output = output + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]]) + " " + str(row[0]) + ": آنلاین" + "\n"
             elif row[1] == 0:
-                output = output + str(sensor_type) + " " + str(row[0]) + ": آفلاین" + "\n"
+                output = output + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]])+ " " + str(row[0]) + ": آفلاین" + "\n"
         print(output)
         cursor.close()
         return output
     else:
-        output = "داده ای در رابطه با " + str(sensor_type) + " های " + str(area) + " کشور یافت نشد."
+        output = "داده ای در رابطه با " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]]) + " های " + str(area) + " کشور یافت نشد."
         print(output)
         cursor.close()
         return output
@@ -7048,14 +7048,12 @@ def get_parameter_of_sensor_based_on_parameter_type(sensor_id, parameter, sensor
     rows = cursor.fetchall()
     if rows:
         parameter_dict = json.loads(rows[0][0])
-        output = parameter_eng_to_per[str(parameter_fills[str(parameter)])] + "مربوط به " + str(
-            sensor_type) + " " + str(sensor_id) + " برابر است با: " + str(parameter_dict[str(parameter)])
+        output = parameter_eng_to_per[str(parameter_fills[str(parameter)])] + "مربوط به " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]]) + " " + str(sensor_id) + " برابر است با: " + str(parameter_dict[str(parameter)])
         print(output)
         cursor.close()
         return output
     else:
-        output = "داده ای در رابطه با " + parameter_eng_to_per[str(parameter[str(parameter)])] + " مربوط به " + str(
-            sensor_type) + " " + str(sensor_id) + "یافت نشد."
+        output = "داده ای در رابطه با " + parameter_eng_to_per[str(parameter[str(parameter)])] + " مربوط به " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]]) + " " + str(sensor_id) + "یافت نشد."
         print(output)
         cursor.close()
         return output
@@ -7075,7 +7073,7 @@ def check_if_two_sensors_interfere(sensor_id_1, sensor_id_2, sensor_type_1, sens
                 "radius": rows[0][2]
             }
         else:
-            output = "داده ای در رابطه با حوزه استحفاظی " + str(sensor_type_1) + " " + str(sensor_id_1) + " یافت نشد."
+            output = "داده ای در رابطه با حوزه استحفاظی " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type_1)]]) + " " + str(sensor_id_1) + " یافت نشد."
             print(output)
             cursor.close()
             return output
@@ -7090,7 +7088,7 @@ def check_if_two_sensors_interfere(sensor_id_1, sensor_id_2, sensor_type_1, sens
                 "radius": rows[0][2]
             }
         else:
-            output = "داده ای در رابطه با حوزه استحفاظی " + str(sensor_type_1) + " " + str(sensor_id_1) + " یافت نشد."
+            output = "داده ای در رابطه با حوزه استحفاظی " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type_1)]]) + " " + str(sensor_id_1) + " یافت نشد."
             print(output)
             cursor.close()
             return output
@@ -7105,7 +7103,7 @@ def check_if_two_sensors_interfere(sensor_id_1, sensor_id_2, sensor_type_1, sens
                 "radius": rows[0][2]
             }
         else:
-            output = "داده ای در رابطه با حوزه استحفاظی " + str(sensor_type_2) + " " + str(sensor_id_2) + " یافت نشد."
+            output = "داده ای در رابطه با حوزه استحفاظی " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type_2)]]) + " " + str(sensor_id_2) + " یافت نشد."
             print(output)
             cursor.close()
             return output
@@ -7120,21 +7118,19 @@ def check_if_two_sensors_interfere(sensor_id_1, sensor_id_2, sensor_type_1, sens
                 "radius": rows[0][2]
             }
         else:
-            output = "داده ای در رابطه با حوزه استحفاظی " + str(sensor_type_1) + " " + str(sensor_id_1) + " یافت نشد."
+            output = "داده ای در رابطه با حوزه استحفاظی " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type_2)]]) + " " + str(sensor_id_1) + " یافت نشد."
             print(output)
             cursor.close()
             return output
     cursor.close()
     if if_tow_circle_overlaps(dict1["longitude"], dict2["longitude"], dict1["latitude"], dict2["latitude"],
                               dict1["radius"], dict2["radius"]):
-        output = "حوزه استحفاظی " + str(sensor_type_1) + " " + str(sensor_id_1) + " با حوزه استحفاظی " + str(
-            sensor_type_2) + " " + str(sensor_id_2) + " تداخل دارد."
+        output = "حوزه استحفاظی " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type_1)]]) + " " + str(sensor_id_1) + " با حوزه استحفاظی " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type_2)]]) + " " + str(sensor_id_2) + " تداخل دارد."
         print(output)
         cursor.close()
         return output
     else:
-        output = "حوزه استحفاظی " + str(sensor_type_1) + " " + str(sensor_id_1) + " با حوزه استحفاظی " + str(
-            sensor_type_2) + " " + str(sensor_id_2) + " تداخل ندارد."
+        output = "حوزه استحفاظی " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type_1)]]) + " " + str(sensor_id_1) + " با حوزه استحفاظی " +str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type_2)]]) + " " + str(sensor_id_2) + " تداخل ندارد."
         print(output)
         cursor.close()
         return output
@@ -7151,14 +7147,14 @@ def get_all_sensors_that_do_not_interfere_based_on_sensor_type(sensor_type):
     rows = cursor.fetchall()
     if rows:
         rows2 = rows.copy()
-        output = "حوزه استحفاظی جفت " + str(sensor_type) + " های زیر با یکدیگر تداخل ندارند: \n"
+        output = "حوزه استحفاظی جفت " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]]) + " های زیر با یکدیگر تداخل ندارند: \n"
         for i in rows:
             for j in rows2:
                 if i[0] != j[0]:
                     if not if_tow_circle_overlaps(i[3], j[3], i[4], j[4], i[5], j[5]):
                         output = output + str(i) + ", " + str(j) + "\n"
     else:
-        output = "داده ای در رابطه حوزه استحفاظی " + str(sensor_type) + " هایی که با هم تداخل ندارند، یافت نشد. "
+        output = "داده ای در رابطه حوزه استحفاظی " + str(sensor_type_eng_to_per[sensor_type_fills[str(sensor_type)]]) + " هایی که با هم تداخل ندارند، یافت نشد. "
     print(output)
     cursor.close()
     return output
@@ -7171,12 +7167,12 @@ def get_count_of_barracks_staff_based_on_rank(barracks_name, rank):
                  where barracks_ID=? and rank=?", (barracks_name, rank_fills[str(rank)]))
     rows = cursor.fetchall()
     if rows:
-        output = "تعداد " + str(rank) + " های پادگان " + str(barracks_name) + "برابر است با: " + str(rows[0][0])
+        output = "تعداد " + str(rank_eng_to_per[rank_fills[str(rank)]]) + " های پادگان " + str(barracks_name) + "برابر است با: " + str(rows[0][0])
         print(output)
         cursor.close()
         return output
     else:
-        output = "داده ای در رابطه با تعداد " + str(rank) + " های پادگان " + str(barracks_name) + "یافت نشد."
+        output = "داده ای در رابطه با تعداد " + str(rank_eng_to_per[rank_fills[str(rank)]]) + " های پادگان " + str(barracks_name) + "یافت نشد."
         print(output)
         cursor.close()
         return output
@@ -7189,7 +7185,7 @@ def get_barracks_name_of_a_staff(staff_name, rank):
                  where rank=?", (rank_fills[str(rank)],))
     rows = cursor.fetchall()
     if rows:
-        output = str(rank) + " " + str(staff_name) + " در پادگان "
+        output = str(rank_eng_to_per[rank_fills[str(rank)]]) + " " + str(staff_name) + " در پادگان "
         for row in rows:
             if str(row[2]) == staff_name or str(row[1]) + " " + str(row[2]) == staff_name:
                 output = output + str(row[0]) + " حضور دارد."
@@ -7197,7 +7193,7 @@ def get_barracks_name_of_a_staff(staff_name, rank):
                 cursor.close()
                 return output
     else:
-        output = "داده ای در رابطه با پادگان مربوط به " + str(rank) + " " + str(staff_name) + "یافت نشد."
+        output = "داده ای در رابطه با پادگان مربوط به " + str(rank_eng_to_per[rank_fills[str(rank)]]) + " " + str(staff_name) + "یافت نشد."
         print(output)
         cursor.close()
         return output
@@ -7210,7 +7206,7 @@ def get_access_level_of_a_staff(staff_name, rank):
                  where rank=?", (rank_fills[str(rank)],))
     rows = cursor.fetchall()
     if rows:
-        output = "ُسطح دسترسی " + str(rank) + " " + str(staff_name) + " "
+        output = "ُسطح دسترسی " + str(rank_eng_to_per[rank_fills[str(rank)]]) + " " + str(staff_name) + " "
         for row in rows:
             if str(row[2]) == staff_name or str(row[1]) + " " + str(row[2]) == staff_name:
                 output = output + str(row[0]) + " میباشد."
@@ -7218,7 +7214,7 @@ def get_access_level_of_a_staff(staff_name, rank):
                 cursor.close()
                 return output
     else:
-        output = "داده ای در رابطه با سطح دسترسی " + str(rank) + " " + str(staff_name) + "یافت نشد."
+        output = "داده ای در رابطه با سطح دسترسی " + str(rank_eng_to_per[rank_fills[str(rank)]]) + " " + str(staff_name) + "یافت نشد."
         print(output)
         cursor.close()
         return output
@@ -7231,7 +7227,7 @@ def is_staff_active(staff_name, rank):
                  where rank=?", (rank_fills[str(rank)],))
     rows = cursor.fetchall()
     if rows:
-        output = str(rank) + " " + str(staff_name) + " "
+        output = str(rank_eng_to_per[rank_fills[str(rank)]]) + " " + str(staff_name) + " "
         for row in rows:
             if str(row[2]) == staff_name or str(row[1]) + " " + str(row[2]) == staff_name:
                 if row[0] == 0:
@@ -7245,7 +7241,7 @@ def is_staff_active(staff_name, rank):
                     cursor.close()
                     return output
     else:
-        output = "داده ای در رابطه با فعال یا بلاک بودن " + str(rank) + " " + str(staff_name) + "یافت نشد."
+        output = "داده ای در رابطه با فعال یا بلاک بودن " + str(rank_eng_to_per[rank_fills[str(rank)]]) + " " + str(staff_name) + "یافت نشد."
         print(output)
         cursor.close()
         return output
