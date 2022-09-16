@@ -7211,25 +7211,25 @@ def check_if_two_sensors_interfere(sensor_id_1, sensor_id_2, sensor_type_1, sens
 # "حوزه استحفاظی چه سنسورهایی با یکدیگر تداخل ندارد؟"
 def get_all_sensors_that_do_not_interfere_based_on_sensor_type(sensor_type):
     cursor = conn.cursor()
-    if sensor_type == "sensor":
+    if sensor_type_fills[str(sensor_type)] == "sensor":
         cursor.execute("select * from sensors")
     else:
         cursor.execute("select * from sensors \
-                     where type=?", (sensor_type,))
+                     where type=?", (sensor_type_fills[str(sensor_type)],))
     rows = cursor.fetchall()
     if rows:
         rows2 = rows.copy()
+        output = "حوزه استحفاظی جفت " + str(sensor_type) + " های زیر با یکدیگر تداخل ندارند: \n"
         for i in rows:
             for j in rows2:
                 if i[0] != j[0]:
                     if not if_tow_circle_overlaps(i[3], j[3], i[4], j[4], i[5], j[5]):
-                        print(i)
-                        print("and")
-                        print(j)
-                        print("********")
+                        output = output + str(i) + ", " + str(j) + "\n"
     else:
-        print("Nothing found!")
+        output = "داده ای در رابطه حوزه استحفاظی " + str(sensor_type) + " هایی که با هم تداخل ندارند، یافت نشد. "
+    print(output)
     cursor.close()
+    return output
 
 
 # "تعداد سرهنگ های پادگان # چندتاست؟"
