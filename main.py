@@ -7281,18 +7281,21 @@ def get_barracks_name_of_a_staff(staff_name, rank):
 def get_access_level_of_a_staff(staff_name, rank):
     cursor = conn.cursor()
     cursor.execute("select access_level, first_name, last_name from staff \
-                 where rank=?", (rank,))
+                 where rank=?", (rank_fills[str(rank)],))
     rows = cursor.fetchall()
     if rows:
+        output = "ُسطح دسترسی " + str(rank) + " " + str(staff_name) + " "
         for row in rows:
-            if row[2] == staff_name:
-                print(row[0])
-                return
-            elif str(row[1]) + " " + str(row[2]) == staff_name:
-                print(row[0])
-                return
-    print(rank + " " + staff_name + " does not exist!")
-    cursor.close()
+            if str(row[2]) == staff_name or str(row[1]) + " " + str(row[2]) == staff_name:
+                output = output + str(row[0]) + " میباشد."
+                print(output)
+                cursor.close()
+                return output
+    else:
+        output = "داده ای در رابطه با سطح دسترسی " + str(rank) + " " + str(staff_name) + "یافت نشد."
+        print(output)
+        cursor.close()
+        return output
 
 
 # "سرهنگ # فعال است یا بلاک؟"
