@@ -7236,11 +7236,19 @@ def get_all_sensors_that_do_not_interfere_based_on_sensor_type(sensor_type):
 def get_count_of_barracks_staff_based_on_rank(barracks_name, rank):
     cursor = conn.cursor()
     cursor.execute("select count(name) from staff \
-                 where barracks_ID=? and rank=?", (barracks_name, rank))
+                 where barracks_ID=? and rank=?", (barracks_name, rank_fills[str(rank)]))
     rows = cursor.fetchall()
     if rows:
-        print(rows[0][0])
-    cursor.close()
+        output = "تعداد " + str(rank) + " های پادگان " + str(barracks_name) + "برابر است با: " + str(rows[0][0])
+        print(output)
+        cursor.close()
+        return output
+    else:
+        output = "داده ای در رابطه با تعداد " + str(rank) + " های پادگان " + str(barracks_name) + "یافت نشد."
+        print(output)
+        cursor.close()
+        return output
+
 
 
 # "ُسرهنگ # در کدام پادگان حضور دارد؟"
